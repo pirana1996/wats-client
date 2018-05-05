@@ -1,0 +1,8 @@
+<div *ngIf="reviews">
+  <ul>
+    <li *ngFor="let review of reviews">
+      {{review.description}} | {{review.user.name}} | {{review.location.name}} | {{review.datePublished}}
+    </li>
+  </ul>
+</div>
+

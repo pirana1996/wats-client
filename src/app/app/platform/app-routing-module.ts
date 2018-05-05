@@ -10,10 +10,15 @@ const routes: Routes = [
   {path: '', component: AppComponent, pathMatch: 'full'},
   {path: 'some', component: SomeComponent, pathMatch: 'full'},
   {path: '', redirectTo: '/home',  pathMatch: 'full'},
-  // {path: 'home', component: AppComponent},
-  { // feature module ForumModule
+  // feature module ForumModule
+  {
     path: 'forum',
     loadChildren: 'app/forum/platform/forum.module#ForumModule'
+  },
+  // feature module ReviewsModule
+  {
+    path: 'reviews',
+    loadChildren: 'app/reviews/platform/reviews.module#ReviewsModule'
   },
 ];
 
@@ -24,6 +29,6 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class AppRoutingModules {
+export class AppRoutingModule {
 
 }

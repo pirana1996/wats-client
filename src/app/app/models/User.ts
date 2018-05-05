@@ -1,10 +1,11 @@
 import {Location} from './Location';
 
 export class User {
-  id: number;
-  name: string;
-  email: string;
-  username: string;
-  pictureUrl: string;
-  currentLocation: Location;
+  constructor(public id: number,
+              public name: string,
+              public email: string,
+              public username: string,
+              public pictureUrl: string,
+              public currentLocation: Location) {
+  }
 }
