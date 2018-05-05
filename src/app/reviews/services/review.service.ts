@@ -10,13 +10,11 @@ export class ReviewService {
   constructor(private http: HttpClient) { }
 
   public getReviews(): Observable<any> {
-    // return this.http.get<any>('http://localhost:8080/api/locations/1/reviews')
-    return this.http.get<any>('/api/locations/1/reviews')
+    return this.http.get<any>('/api/public/locations/1/reviews')
       .pipe(
         catchError(this.handleError('getReviews', null))
       );
   }
-
 
   /**
    * Handle Http operation that failed.
