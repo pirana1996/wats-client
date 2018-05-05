@@ -1,0 +1,7 @@
+<!--<app-question *ngIf="question" [question]="question"></app-question>-->
+<ul>
+  <li *ngFor="let a of answers">
+    <app-answer [answer]="a"></app-answer>
+  </li>
+</ul>
+<app-create-answer></app-create-answer>

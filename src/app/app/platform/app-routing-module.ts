@@ -5,21 +5,20 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from '../pages/app/app.component';
 import {SomeComponent} from '../pages/some/some.component';
 
-
 const routes: Routes = [
   {path: '', component: AppComponent, pathMatch: 'full'},
   {path: 'some', component: SomeComponent, pathMatch: 'full'},
   {path: '', redirectTo: '/home',  pathMatch: 'full'},
   // feature module ForumModule
   {
-    path: 'forum',
+    path: 'location/:locationId/forum',
     loadChildren: 'app/forum/platform/forum.module#ForumModule'
   },
   // feature module ReviewsModule
   {
     path: 'reviews',
     loadChildren: 'app/reviews/platform/reviews.module#ReviewsModule'
-  },
+  }
 ];
 
 @NgModule({
