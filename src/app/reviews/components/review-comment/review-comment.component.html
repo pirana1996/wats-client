@@ -1,16 +1,16 @@
-<div id="review-comment">
+<div class="comment">
     <div class="row">
       <div class="col-1">
-        <img class="img-fluid"
+        <img class="profile-pic img-fluid"
           src="../../../../assets/images/pp-template.png">
       </div>
-      <div class="col-11">
-        <span>{{comment.user.name}}</span>
-        <small class="float-right">{{comment.datePublished | date }}</small>
-        <div class="row">
-          <div class="col-10">
-            <p>{{comment.description}}</p>
-          </div>
+      <div class="col-11 comment-right">
+        <div class="comment-header">
+          <span class="person-name">{{comment.user.name}}</span>
+          <small class="float-right implicit"><i>{{comment.datePublished | date }}</i></small>
+        </div>
+        <div class="comment-body">
+          <p>{{comment.description}}</p>
         </div>
       </div>
     </div>

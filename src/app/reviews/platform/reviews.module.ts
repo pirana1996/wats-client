@@ -8,8 +8,8 @@ import { CustomHttpInterceptor } from './../../app/services/custom-http-intercep
 import { ReviewListComponent } from '../pages/review-list/review-list.component';
 import { ReviewService } from '../services/review.service';
 import { ReviewComponent } from '../components/review/review.component';
-import { ReviewCommentComponent } from '../components/review-comment/review-comment.component';
 import { ReviewDiscussionComponent } from '../pages/review-discussion/review-discussion.component';
+import { ReviewCommentComponent } from '../components/review-comment/review-comment.component';
 
 @NgModule({
   imports: [

@@ -1,0 +1,12 @@
+
+<div>
+  <form class="form" [formGroup]="form">
+    <div class="input-group">
+      <textarea formControlName="description" rows=3 class="form-control"
+        placeholder="Free you thoughts..."></textarea>
+    </div><br>
+    <button (click)="onPostClicked()"
+      class="float-right btn btn-success">Post
+    </button>
+  </form>
+</div>

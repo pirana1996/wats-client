@@ -34,3 +34,7 @@
 .disabled {
   font-weight: normal;
 }
+
+.page-title {
+  margin-bottom: 20px;
+}

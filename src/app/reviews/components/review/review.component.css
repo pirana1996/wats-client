@@ -1,7 +1,35 @@
-#review {
-  padding: 30px;
-  border: 1px solid grey;
+.review {
+  padding: 20px 20px 0 20px;
+}
+
+.review-right {
+  padding: 10px 30px 15px 30px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  background-color:  lightgray;
+  background-color: rgb(251, 251, 251);;
+}
+
+.implicit {
+  color: gray;
+}
+
+.review-header {
   margin-bottom: 10px;
+}
+
+.review-body {
+  margin-bottom: 10px;
+}
+
+.person-name {
+  color: darkslategray;
+  font-weight: bold;
+  font-size: 1.4em;
+}
+
+.profile-pic {
+  border-radius: 5px;
 }
 
 
