@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {ReviewListComponent} from '../pages/review-list/review-list.component';
+import { ReviewDiscussionComponent } from '../pages/review-discussion/review-discussion.component';
 
 const routes: Routes = [
   {
-    path: 'list',
+    path: '',
     component: ReviewListComponent
+  },
+  {
+    path: ':id',
+    component: ReviewDiscussionComponent
   }
 ];
 

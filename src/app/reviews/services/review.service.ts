@@ -1,3 +1,5 @@
+import { ReviewComment } from './../models/review-comment.model';
+import { Review } from './../models/review.model';
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
@@ -16,6 +18,13 @@ export class ReviewService {
       );
   }
 
+  public getReviewById(id: number): Observable<Review> {
+    return this.http.get<Review>(`/api/public/locations/1/reviews/${id}`)
+      .pipe(
+        catchError(this.handleError('getReviewById', null))
+      );
+  }
+
   public getReviewsByPage(page: number = 0, size: number = 5): Observable<any> {
     return this.http.get<any>(`/api/public/locations/1/reviews?page=${page}&size=${size}`)
       .pipe(
@@ -27,6 +36,13 @@ export class ReviewService {
     return this.http.get<any>(`/api/public/locations/1/reviews/${reviewId}/comments?size=${top}`)
       .pipe(
         catchError(this.handleError('getTopMostPopularComments', null))
+      );
+  }
+
+  public getAllCommentsforReview(reviewId: number): Observable<ReviewComment[]> {
+    return this.http.get<any>(`/api/public/locations/1/reviews/${reviewId}/comments`)
+      .pipe(
+        catchError(this.handleError('getAllCommentsforReview', null))
       );
   }
 
