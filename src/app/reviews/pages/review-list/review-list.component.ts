@@ -27,7 +27,7 @@ export class ReviewListComponent implements OnInit {
       const { content, ...pageInfo } = it;
       this.reviews = content;
       this.pageInfo = pageInfo;
-      this.initPageNumbers(this.pageInfo.totalPages)
+      this.initPageNumbers(this.pageInfo.totalPages);
     });
   }
 

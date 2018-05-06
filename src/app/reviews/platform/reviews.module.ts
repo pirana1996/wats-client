@@ -7,13 +7,15 @@ import { CustomHttpInterceptor } from './../../app/services/custom-http-intercep
 
 import { ReviewListComponent } from '../pages/review-list/review-list.component';
 import { ReviewService } from '../services/review.service';
+import { ReviewComponent } from '../components/review/review.component';
+import { ReviewCommentComponent } from '../components/review-comment/review-comment.component';
 
 @NgModule({
   imports: [
     ReviewsRoutingModule,
     SharedModule.forRoot(),
   ],
-  declarations: [ReviewListComponent],
+  declarations: [ReviewListComponent, ReviewComponent, ReviewCommentComponent],
   providers: [
     ReviewService,
     {

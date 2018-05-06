@@ -1,0 +1,33 @@
+<div id="review">
+  <div class="row">
+    <div class="col-1">
+      <img class="img-fluid"
+        src="../../../../assets/images/pp-template.png">
+    </div>
+    <div class="col-11">
+      <span>{{review.user.name}}</span>
+      <small class="float-right">{{review.datePublished | date }}</small>
+      <div class="row">
+        <div class="col-10">
+          <p>{{review.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <small class="badge badge-primary float-right pointer" style="margin-left: 5px">
+    open full discussion
+    <i class="fa fa-chevron-right"></i>
+  </small>
+  <small *ngIf="shouldHideComments" class="float-right badge badge-success pointer" (click)="onShowCommentsClicked()">
+    show top comments <i class="fa fa-chevron-down"></i>
+  </small>
+  <small *ngIf="!shouldHideComments" class="float-right badge badge-danger pointer" (click)="onShowCommentsClicked()">
+    hide comments <i class="fa fa-chevron-up"></i>
+  </small>
+</div>
+
+<ul id="list-comments" *ngIf="review.comments && !shouldHideComments">
+  <li *ngFor="let comment of review.comments">
+    <app-review-comment [comment]=comment></app-review-comment>
+  </li>
+</ul>

@@ -1,9 +1,5 @@
 <div *ngIf="reviews">
-  <ul>
-    <li *ngFor="let review of reviews">
-      {{review.description}} | {{review.user.name}} | {{review.location.name}} | {{review.datePublished}}
-    </li>
-  </ul>
+  <app-review  *ngFor="let review of reviews" [review]=review></app-review>
 </div>
 
 <div id="pagination">
