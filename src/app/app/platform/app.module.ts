@@ -21,10 +21,10 @@ import { NavbarComponent } from '../components/navbar/navbar.component';
     NavbarComponent,
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     CoreModule,
-    SharedModule.forRoot(),
-    AppRoutingModule
+    SharedModule.forRoot()
   ],
   providers: [
     {

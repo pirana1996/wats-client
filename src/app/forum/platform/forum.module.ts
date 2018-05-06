@@ -1,7 +1,5 @@
-import {ModuleWithProviders, NgModule} from '@angular/core';
-
+import {NgModule} from '@angular/core';
 import { ForumRoutingModule } from './forum-routing.module';
-import { TestComponent } from '../pages/test/test.component';
 import {SharedModule} from '../../shared/shared.module';
 import { QuestionListComponent } from '../pages/question-list/question-list.component';
 import { ForumService } from '../services/forum-service.service';
@@ -15,14 +13,8 @@ import { AnswerComponent } from '../component/answer/answer.component';
     ForumRoutingModule,
     SharedModule.forRoot()
   ],
-  declarations: [TestComponent, QuestionListComponent, CreateAnswerComponent, QuestionDetailsComponent, QuestionComponent, AnswerComponent],
+  declarations: [QuestionListComponent, CreateAnswerComponent, QuestionDetailsComponent, QuestionComponent, AnswerComponent],
   providers: [ForumService]
 })
 export class ForumModule {
-  // static forRoot(): ModuleWithProviders {
-  //   return {
-  //     ngModule: ForumModule,
-  //     providers: [ ForumService ]
-  //   }
-  // }
 }

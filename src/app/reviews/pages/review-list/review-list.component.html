@@ -1,15 +1,27 @@
-<div *ngIf="reviews">
-  <app-review  *ngFor="let review of reviews" [review]=review></app-review>
+<div class="main-container">
+
+    <h2 class="page-title">[LOCATION]</h2>
+
+    <button *ngIf="activeUser && !showForm" (click)="showPostForm()" class="btn btn-outline-success"><i class="fa fa-plus"></i> Review</button>
+    <app-item-post (posted)="onReviewPosted($event)" *ngIf="showForm" [postReview]=true [locationId]=1></app-item-post>
+    <button *ngIf="showForm" (click)="hidePostForm()" class="btn btn-danger"><i class="fa fa-cross"></i> Cancel</button>
+    <hr>
+
+    <div *ngIf="reviews.value">
+        <app-review  *ngFor="let review of reviews | async" [review]=review></app-review>
+      </div>
+
+      <div id="pagination">
+        <ul>
+            <span id="prev-page" *ngIf="pageInfo.first==false" (click)=getPage(pageInfo.number-1)><<</span>
+            <li *ngFor="let number of numbers"
+                (click)=getPage(number)
+                [ngClass]="{'active': pageInfo.number==number, 'disabled': pageInfo.number!=number}">
+            {{number}}
+            </li>
+            <span id="next-page"  *ngIf="pageInfo.last==false" (click)=getPage(pageInfo.number+1)>>></span>
+        </ul>
+      </div>
 </div>
 
-<div id="pagination">
-  <ul>
-      <span id="prev-page" *ngIf="pageInfo.first==false" (click)=getPage(pageInfo.number-1)><<</span>
-      <li *ngFor="let number of numbers"
-          (click)=getPage(number)
-          [ngClass]="{'active': pageInfo.number==number, 'disabled': pageInfo.number!=number}">
-      {{number}}
-      </li>
-      <span id="next-page"  *ngIf="pageInfo.last==false" (click)=getPage(pageInfo.number+1)>>></span>
-  </ul>
-</div>
+

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ReviewService } from './../../services/review.service';
 import { AuthService } from './../../../core/services/auth.service';
 import { Review } from './../../models/review.model';
@@ -20,7 +21,7 @@ export class ReviewComponent implements OnInit {
 
   onShowCommentsClicked() {
     this.shouldHideComments = !this.shouldHideComments;
-    this.reviewService.getTopMostPopularComments(this.review.id, 5)
+    this.reviewService.getTopMostPopularComments(this.review.id, 3)
       .subscribe(it => {
         this.review.comments = it;
       });

@@ -1,3 +1,5 @@
+import { ReviewComment } from './../models/review-comment.model';
+import { Review } from './../models/review.model';
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
@@ -16,17 +18,43 @@ export class ReviewService {
       );
   }
 
-  public getReviewsByPage(page: number = 0, size: number = 5): Observable<any> {
-    return this.http.get<any>(`/api/public/locations/1/reviews?page=${page}&size=${size}`)
+  public getReviewById(id: number): Observable<Review> {
+    return this.http.get<Review>(`/api/public/locations/1/reviews/${id}`)
+      .pipe(
+        catchError(this.handleError('getReviewById', null))
+      );
+  }
+
+  public getReviewsByLocationSoredByDateDesc(locationId: number, page: number = 0, size: number = 5): Observable<any> {
+    return this.http.get<any>(`/api/public/locations/${locationId}/reviews?page=${page}&size=${size}&sort=datePublished,desc`)
       .pipe(
         catchError(this.handleError('getReviewsByPage', null))
       );
+  }
+
+  public getReviewsByLocationSoredByPopularity(locationId: number, page: number = 0, size: number = 5): Observable<any> {
+    throw new Error('Method not implemented');
   }
 
   public getTopMostPopularComments(reviewId: number, top: number): Observable<any> {
     return this.http.get<any>(`/api/public/locations/1/reviews/${reviewId}/comments?size=${top}`)
       .pipe(
         catchError(this.handleError('getTopMostPopularComments', null))
+      );
+  }
+
+  public postReview(reviewRequest: {description: string, locationId: number, datePublished: Date})
+  : Observable<Review> {
+    return this.http.post<Review>(`/api/locations/${reviewRequest.locationId}/reviews/`, reviewRequest)
+    .pipe(
+      catchError(this.handleError('postReview', null))
+    );
+  }
+
+  public getAllCommentsforReview(reviewId: number): Observable<ReviewComment[]> {
+    return this.http.get<any>(`/api/public/locations/1/reviews/${reviewId}/comments`)
+      .pipe(
+        catchError(this.handleError('getAllCommentsforReview', null))
       );
   }
 

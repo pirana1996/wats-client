@@ -1,0 +1,35 @@
+<div class="main-class">
+
+<h2>[Location]</h2>
+
+<div id="review" *ngIf=review>
+    <div class="row">
+      <div class="col-1">
+        <img class="img-fluid"
+          src="../../../../assets/images/pp-template.png">
+      </div>
+      <div class="col-11">
+        <span>{{review.user.name}}</span>
+        <small class="float-right">{{review.datePublished | date }}</small>
+        <div class="row">
+          <div class="col-10">
+            <p>{{review.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="comments" *ngIf="review.comments">
+    <div class="row">
+      <div class="col-1"></div>
+      <div class="col-11">
+        <app-review-comment
+        *ngFor="let comment of review.comments"
+        [comment]=comment>
+      </app-review-comment>
+      </div>
+    </div>
+  </div>
+
+</div>
