@@ -4,7 +4,6 @@ import {AppComponent} from '../pages/app/app.component';
 import {SomeComponent} from '../pages/some/some.component';
 import { LoginComponent } from './../pages/login/login.component';
 
-
 const routes: Routes = [
   //{path: 'home', component: AppComponent, pathMatch: 'full'},
   {path: 'login', component: LoginComponent, pathMatch: 'full'},
@@ -12,14 +11,14 @@ const routes: Routes = [
   //{path: '', redirectTo: '/home',  pathMatch: 'full'},
   // feature module ForumModule
   {
-    path: 'forum',
+    path: 'location/:locationId/forum',
     loadChildren: 'app/forum/platform/forum.module#ForumModule'
   },
   // feature module ReviewsModule
   {
     path: 'reviews',
     loadChildren: 'app/reviews/platform/reviews.module#ReviewsModule'
-  },
+  }
 ];
 
 @NgModule({

@@ -1,0 +1,5 @@
+<div *ngIf="question">
+<a href="/location/{{question.location.id}}/forum/questions/{{question.id}}/answers?page=0&size=2">
+{{question.date_published}}</a>
+{{question.description}} {{question.user.name}}
+</div>
