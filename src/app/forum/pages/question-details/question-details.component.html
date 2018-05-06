@@ -1,46 +1,37 @@
-
-<app-question *ngIf="question" [question]="question"></app-question>
-<ul>
-  <li *ngFor="let a of answers">
-    <app-answer [answer]="a"></app-answer>
-  </li>
-</ul>
-<app-create-answer></app-create-answer>
-
-<div *ngIf="question && pageInfo" class="center">
-  <div class="pagination">
-    <!--<a href="/location/{{question.location.id}}/forum/questions/{{question.id}}/answers?page={{(+page)-1}}&size={{size}}">&laquo;</a>-->
-
-    <!--<a  href="/location/{{question.location.id}}/forum/questions/{{question.id}}/answers?page={{num}}&size={{size}}" *ngFor="let num of pagerNumbers">-->
-    <!--{{num}}-->
-    <!--</a>-->
-
-    <!--<button [routerLink]="['/api/locations/'+locationId+'/forum/questions/'+questionId+'/answers']" [queryParams]="{sort: 'id,asc', page: ind+1, size: 2}">-->
-    <!--right-->
-    <!--</button>-->
-
+<div class="container">
+  <div class="" style="background-color: green">
+    <div class="row">
+      <app-question *ngIf="question" [question]="question"></app-question>
+    </div>
+    <div class="row">
+      <ul>
+        <li *ngFor="let a of answers" class="center-block" style="background-color: red">
+          <app-answer [answer]="a"></app-answer>
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <app-create-answer></app-create-answer>
+    </div>
   </div>
-
-
-  <div>
-    <!-- pager -->
-    <ul *ngIf="pageInfo" class="pagination">
-      <li>
-        <a (click)="setPage(0)">First</a>
-      </li>
-      <li>
-        <a (click)="setPage((+page)-1)">Previous</a>
-      </li>
-      <li *ngFor="let page of pagerNumbers">
-        <a (click)="setPage(page)">{{page}}</a>
-      </li>
-      <li>
-        <a (click)="setPage((+page)+1)">Next</a>
-      </li>
-      <li>
-        <a (click)="setPage(pageInfo.totalPages-1)">Last</a>
-      </li>
-    </ul>
+  <div *ngIf="question && pageInfo">
+      <!-- pager -->
+      <ul *ngIf="pageInfo" class="pagination justify-content-center">
+        <li class="page-item" [class.disabled]="page==0">
+          <a (click)="setPage(0)" class="page-link">First</a>
+        </li>
+        <li class="page-item" [class.disabled]="page==0">
+          <a (click)="setPage((+page)-1)" class="page-link">Previous</a>
+        </li>
+        <li *ngFor="let p of pagerNumbers" [class.active]="(p-1)==page" class="page-item">
+          <a (click)="setPage(p-1)" class="page-link">{{p}}</a>
+        </li>
+        <li class="page-item" [class.disabled]="page==pageInfo.totalPages-1">
+          <a (click)="setPage((+page)+1)" class="page-link">Next</a>
+        </li>
+        <li class="page-item" [class.disabled]="page==pageInfo.totalPages-1">
+          <a (click)="setPage(pageInfo.totalPages-1)" class="page-link">Last</a>
+        </li>
+      </ul>
   </div>
-
 </div>
