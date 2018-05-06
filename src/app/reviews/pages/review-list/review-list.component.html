@@ -1,8 +1,15 @@
 <div *ngIf="reviews">
-  <ul>
-    <li *ngFor="let review of reviews">
-      {{review.description}} | {{review.user.name}} | {{review.location.name}} | {{review.datePublished}}
-    </li>
-  </ul>
+  <app-review  *ngFor="let review of reviews" [review]=review></app-review>
 </div>
 
+<div id="pagination">
+  <ul>
+      <span id="prev-page" *ngIf="pageInfo.first==false" (click)=getPage(pageInfo.number-1)><<</span>
+      <li *ngFor="let number of numbers"
+          (click)=getPage(number)
+          [ngClass]="{'active': pageInfo.number==number, 'disabled': pageInfo.number!=number}">
+      {{number}}
+      </li>
+      <span id="next-page"  *ngIf="pageInfo.last==false" (click)=getPage(pageInfo.number+1)>>></span>
+  </ul>
+</div>

@@ -1,0 +1,14 @@
+#review {
+  padding: 30px;
+  border: 1px solid grey;
+  margin-bottom: 10px;
+}
+
+
+.pointer {
+  cursor: pointer;
+}
+
+#list-comments {
+  list-style: none;
+}
