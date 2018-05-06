@@ -4,7 +4,7 @@ import { ForumRoutingModule } from './forum-routing.module';
 import { TestComponent } from '../pages/test/test.component';
 import {SharedModule} from '../../shared/shared.module';
 import { QuestionListComponent } from '../pages/question-list/question-list.component';
-import { ForumService } from '../services/question-service.service';
+import { ForumService } from '../services/forum-service.service';
 import { CreateAnswerComponent } from '../component/create-answer/create-answer.component';
 import { QuestionDetailsComponent } from '../pages/question-details/question-details.component';
 import { QuestionComponent } from '../component/question/question.component';

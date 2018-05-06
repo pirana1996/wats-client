@@ -1,7 +1,46 @@
-<!--<app-question *ngIf="question" [question]="question"></app-question>-->
+
+<app-question *ngIf="question" [question]="question"></app-question>
 <ul>
   <li *ngFor="let a of answers">
     <app-answer [answer]="a"></app-answer>
   </li>
 </ul>
 <app-create-answer></app-create-answer>
+
+<div *ngIf="question && pageInfo" class="center">
+  <div class="pagination">
+    <!--<a href="/location/{{question.location.id}}/forum/questions/{{question.id}}/answers?page={{(+page)-1}}&size={{size}}">&laquo;</a>-->
+
+    <!--<a  href="/location/{{question.location.id}}/forum/questions/{{question.id}}/answers?page={{num}}&size={{size}}" *ngFor="let num of pagerNumbers">-->
+    <!--{{num}}-->
+    <!--</a>-->
+
+    <!--<button [routerLink]="['/api/locations/'+locationId+'/forum/questions/'+questionId+'/answers']" [queryParams]="{sort: 'id,asc', page: ind+1, size: 2}">-->
+    <!--right-->
+    <!--</button>-->
+
+  </div>
+
+
+  <div>
+    <!-- pager -->
+    <ul *ngIf="pageInfo" class="pagination">
+      <li>
+        <a (click)="setPage(0)">First</a>
+      </li>
+      <li>
+        <a (click)="setPage((+page)-1)">Previous</a>
+      </li>
+      <li *ngFor="let page of pagerNumbers">
+        <a (click)="setPage(page)">{{page}}</a>
+      </li>
+      <li>
+        <a (click)="setPage((+page)+1)">Next</a>
+      </li>
+      <li>
+        <a (click)="setPage(pageInfo.totalPages-1)">Last</a>
+      </li>
+    </ul>
+  </div>
+
+</div>

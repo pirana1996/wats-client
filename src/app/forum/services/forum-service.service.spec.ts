@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { ForumService } from './question-service.service';
+import { ForumService } from './forum-service.service';
 
 describe('ForumService', () => {
   beforeEach(() => {
