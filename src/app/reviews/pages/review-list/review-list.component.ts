@@ -11,22 +11,30 @@ import {PageInfo} from '../../../app/models/page-info.model';
 })
 export class ReviewListComponent implements OnInit {
 
-  pageResult: PageInfo;
+  pageInfo: PageInfo;
   reviews: Review[];
+  numbers: number[] = [];
 
-  constructor(private reviewService: ReviewService) { }
+  constructor(private reviewService: ReviewService) {}
 
   ngOnInit() {
-    // this.http.get<any>('/api/public/locations/1/reviews')
-    // .subscribe(it => console.log('EVE GO ', it));
-
-
-    this.reviewService.getReviews()
-      .subscribe(it => {
-        console.log('OVA E ', it);
-        this.pageResult = it;
-        this.reviews = it.content;
-      });
+    this.getPage(0);
   }
 
+  getPage(page: number, size: number = 5) {
+    this.reviewService.getReviewsByPage(page)
+    .subscribe(it => {
+      const { content, ...pageInfo } = it;
+      this.reviews = content;
+      this.pageInfo = pageInfo;
+      this.initPageNumbers(this.pageInfo.totalPages)
+    });
+  }
+
+  private initPageNumbers(n: number) {
+    this.numbers = [];
+    for (let i = 0; i < n; i++) {
+      this.numbers.push(i);
+    }
+  }
 }

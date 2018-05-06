@@ -16,6 +16,13 @@ export class ReviewService {
       );
   }
 
+  public getReviewsByPage(page: number = 0, size: number = 5): Observable<any> {
+    return this.http.get<any>(`/api/public/locations/1/reviews?page=${page}&size=${size}`)
+      .pipe(
+        catchError(this.handleError('getReviews', null))
+      );
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.

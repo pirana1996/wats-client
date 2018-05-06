@@ -1,0 +1,6 @@
+<nav>
+    <span>App Logo</span>
+    <span *ngIf=activeUser>{{ activeUser.name }}</span>
+      <button type=button *ngIf=activeUser (click)="onLogoutClicked()">Logout</button>
+      <a *ngIf=!activeUser routerLink="/login">Login</a>
+</nav>

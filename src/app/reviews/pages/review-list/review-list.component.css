@@ -1,0 +1,36 @@
+#pagination ul li {
+  display: inline-block;
+  list-style: none;
+  font-size: 1em;
+  font-size: 1.2em;
+  padding: 7px;
+}
+
+#pagination ul li:hover {
+  cursor: pointer;
+  font-size: 1.6em;
+  vertical-align: middle;
+}
+
+#pagination {
+  height: 50px;
+  line-height: 50px;
+}
+
+#prev-page:hover {
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+#next-page:hover {
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.active {
+  font-weight: bold;
+}
+
+.disabled {
+  font-weight: normal;
+}
