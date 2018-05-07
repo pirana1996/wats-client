@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import {PageInfo} from '../../../app/models/page-info.model';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import { User } from '../../../app/models/User';
 
 @Component({
   selector: 'app-review-list',
@@ -19,16 +20,18 @@ export class ReviewListComponent implements OnInit {
   reviews: BehaviorSubject<Review[]> = new BehaviorSubject(null);
   numbers: number[] = [];
   showForm = false;
-  activeUser = false;
+  activeUser: User = null;
 
   constructor(
     private reviewService: ReviewService,
     private auth: AuthService
-  ) {}
+  ) {
+    this.activeUser = this.auth.authStateSource.value;
+    this.auth.authStateChangeEmitted$.subscribe(user => this.activeUser = user);
+  }
 
   ngOnInit() {
     this.getPage(0);
-    this.activeUser = this.auth.userIsActive();
   }
 
   getPage(page: number, size: number = 5) {

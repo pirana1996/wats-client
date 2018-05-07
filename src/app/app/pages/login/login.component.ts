@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-    private authService: AuthService,
+    private auth: AuthService,
     private http: HttpClient,
     private router: Router,
     private formBuilder: FormBuilder,
@@ -41,8 +41,8 @@ export class LoginComponent implements OnInit {
     const credentials = this.prepareCredentials();
     return this.http.post<User>('/api/public/login', credentials)
       .subscribe(user => {
-        this.authService.setActiveUser(user);
-        this.router.navigateByUrl('/');
+        this.auth.emitAuthStateChange(user);
+        this.router.navigateByUrl('/reviews');
     });
   }
 

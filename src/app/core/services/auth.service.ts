@@ -1,6 +1,4 @@
 import { Observable } from 'rxjs/Observable';
-// tslint:disable-next-line:import-blacklist
-// import { Observable } from 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -14,15 +12,21 @@ export class AuthService {
 
   private activeUser: Observable<User> = null;
 
-  constructor(private http: HttpClient,
-              private router: Router) { console.log('AuthService::contrictor invoked'); }
+  public authStateSource = new BehaviorSubject<User>(null);
+  authStateChangeEmitted$ = this.authStateSource.asObservable();
 
-  public setActiveUser(user: User) {
-    this.activeUser = of(user);
+  constructor(
+    private http: HttpClient,
+    private router: Router) {
+      console.log('AuthService::contrictor invoked');
   }
 
-  public getActiveUser(): Observable<User> {
-    return this.activeUser !== null ? this.activeUser : this.http.get<User>('/api/user');
+  emitAuthStateChange(change: any) {
+    this.authStateSource.next(change);
+  }
+
+  getActiveUserFromServer(): Observable<User> {
+    return this.http.get<User>('/api/user');
   }
 
   public userIsActive(): boolean {
@@ -31,7 +35,7 @@ export class AuthService {
 
   public logoutUser() {
     localStorage.removeItem('jwtToken');
-    this.activeUser = null;
+    this.authStateSource.next(null);
   }
 
   public getToken(): string {
@@ -40,7 +44,7 @@ export class AuthService {
   }
 
   public storeToken(token: string) {
-    console.log(`Storing token ${token} in local storage`);
+    console.log(`Storing token in local storage`);
     localStorage.setItem('jwtToken', token);
   }
 

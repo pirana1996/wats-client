@@ -2,7 +2,7 @@
 
     <h2 class="page-title">[LOCATION]</h2>
 
-    <button *ngIf="activeUser && !showForm" (click)="showPostForm()" class="btn btn-outline-success"><i class="fa fa-plus"></i> Review</button>
+    <button *ngIf="activeUser && !showForm" (click)="showPostForm()" class="btn btn-outline-success"><i class="fa fa-plus"></i> Review</button><br><br>
     <app-item-post (posted)="onReviewPosted($event)" *ngIf="showForm" [postReview]=true [locationId]=1></app-item-post>
     <button *ngIf="showForm" (click)="hidePostForm()" class="btn btn-danger"><i class="fa fa-cross"></i> Cancel</button>
     <hr>

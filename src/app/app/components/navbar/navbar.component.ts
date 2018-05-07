@@ -11,12 +11,16 @@ export class NavbarComponent implements OnInit {
 
   activeUser: User = null;
 
-  constructor(private auth: AuthService) {}
+  constructor(
+    private auth: AuthService
+  ) {
+    if (this.auth.userIsActive()) {
+      this.auth.getActiveUserFromServer().subscribe(user => this.auth.emitAuthStateChange(user));
+    }
+    this.auth.authStateChangeEmitted$.subscribe(user => this.activeUser = user);
+  }
 
   ngOnInit() {
-    if (this.auth.userIsActive()) {
-      this.auth.getActiveUser().subscribe(user => this.activeUser = user);
-    }
   }
 
   public onLogoutClicked() {
