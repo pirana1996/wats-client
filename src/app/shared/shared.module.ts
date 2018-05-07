@@ -1,4 +1,3 @@
-import { AuthService } from './../core/services/auth.service';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
