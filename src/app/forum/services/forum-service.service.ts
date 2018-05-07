@@ -47,4 +47,8 @@ export class ForumService {
   //   };
   //   return this.httpClient.post(`${this.apiUrl}/${locationId}/forum/questions/${questionId}/answers`, answerText);
   // }
+
+  getTopComments(locationId: number, questionId: number, quantity: number) {
+    return this.httpClient.get<any>(`${this.apiUrl}/${locationId}/forum/questions/${questionId}/answers/top?quantity=${quantity}`);
+  }
 }

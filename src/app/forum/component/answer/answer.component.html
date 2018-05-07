@@ -1,3 +1,22 @@
-<div>
-{{answer.datePublished}} {{answer.description}} {{answer.user.name}}
+<div id="question-answers">
+  <div class="row">
+    <div class="col-1">
+      <img class="img-fluid"
+           src="../../../../assets/images/pp-template.png">
+    </div>
+    <div class="col-11">
+      <span>{{answer.user.name}}</span>
+      <small class="float-right">{{answer.datePublished | date }}</small>
+      <div class="row">
+        <div class="col-10">
+          <p>{{answer.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+<!--<div>-->
+<!--{{answer.datePublished}} {{answer.description}} {{answer.user.name}}-->
+<!--</div>-->

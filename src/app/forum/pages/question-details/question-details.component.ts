@@ -99,5 +99,4 @@ export class QuestionDetailsComponent implements OnInit {
       });
     }
   }
-
 }
