@@ -12,6 +12,7 @@ import { AppComponent } from '../pages/app/app.component';
 import { SomeComponent } from '../pages/some/some.component';
 import { LoginComponent } from '../pages/login/login.component';
 import { NavbarComponent } from '../components/navbar/navbar.component';
+import { SaveTokenComponent } from '../pages/save-token/save-token.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { NavbarComponent } from '../components/navbar/navbar.component';
     SomeComponent,
     LoginComponent,
     NavbarComponent,
+    SaveTokenComponent,
   ],
   imports: [
     AppRoutingModule,
