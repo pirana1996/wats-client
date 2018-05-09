@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Question} from "../../models/Question";
-import {ForumService} from "../../services/forum-service.service";
-import {PageInfo} from "../../../app/models/page-info.model";
+import {Question} from '../../models/Question';
+import {ForumService} from '../../services/forum-service.service';
+import {PageInfo} from '../../../app/models/page-info.model';
 
 @Component({
   selector: 'app-question-list',

@@ -1,6 +1,60 @@
-<nav>
-    <span>App Logo</span>
-    <span *ngIf=activeUser>{{ activeUser.name }}</span>
-      <button type=button *ngIf=activeUser (click)="onLogoutClicked()">Logout</button>
-      <a *ngIf=!activeUser routerLink="/login">Login</a>
-</nav>
+<nav class="navbar navbar-expand-lg bg-dark">
+  <div class="container">
+      <img class="navbar-brand img-fluid" width="50px" src="../../../../assets/images/airplane.png">
+      <!-- <img style="margin-left: -25px" class="navbar-brand img-fluid" width="50px" src="../../../../assets/images/world-map.png"> -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+
+        <!-- <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search any place" aria-label="Search">
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+        </form> -->
+
+          <button *ngIf=!activeUser routerLink="/login" class="btn btn-outline-light my-2 my-sm-0" type="submit">Login</button>
+          <span *ngIf=activeUser class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img class="img-fluid rounded-circle" width="35px" src={{activeUser.pictureUrl}}>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <small class="dropdown-item">Signed in as {{activeUser.name}}</small>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" (click)="onLogoutClicked()">Logout</a>
+              </div>
+            </span>
+
+      </div>
+
+
+
+  </div>
+
+  </nav>
+
+
+<!--
+<div class="main-nav">
+  <nav class="container">
+    <div class="row">
+      <div class="col-6">
+          <span>App Logo</span>
+          <span *ngIf=activeUser>{{ activeUser.name }}</span>
+      </div>
+      <div class="col-6 text-right">
+          <button type=button *ngIf=activeUser (click)="onLogoutClicked()">Logout</button>
+          <a class="btn-log-in-out" *ngIf=!activeUser routerLink="/login">Login</a>
+      </div>
+    </div>
+
+
+  </nav>
+</div> -->

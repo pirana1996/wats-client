@@ -21,6 +21,6 @@ export class SaveTokenComponent {
       this.authService.getActiveUserFromServer()
       .subscribe(user => this.authService.emitAuthStateChange(user));
     }
-    this.router.navigateByUrl('/reviews');
+    this.router.navigateByUrl('/location/1/reviews');
    }
 }

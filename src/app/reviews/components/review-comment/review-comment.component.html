@@ -1,16 +1,25 @@
-<div class="comment">
+<div class="item-box">
     <div class="row">
-      <div class="col-1">
-        <img class="profile-pic img-fluid"
+      <div *ngIf="!comment.user.pictureUrl" class="col-1">
+        <img class="item-profile-pic img-fluid"
           src="../../../../assets/images/pp-template.png">
       </div>
-      <div class="col-11 comment-right">
+      <div *ngIf="comment.user.pictureUrl" class="col-1">
+          <img class="item-profile-pic img-fluid"
+            src="{{comment.user.pictureUrl}}">
+        </div>
+      <div class="col-11 item-right">
         <div class="comment-header">
-          <span class="person-name">{{comment.user.name}}</span>
+          <span class="item-person-name">{{comment.user.name}}</span>
           <small class="float-right implicit"><i>{{comment.datePublished | date }}</i></small>
         </div>
-        <div class="comment-body">
+        <div class="item-body">
           <p>{{comment.description}}</p>
+        </div>
+        <div>
+          <span *ngIf="numLikes || numLikes > 0">
+            <i class="fa fa-thumbs-up like"></i> {{numLikes}}
+          </span>
         </div>
       </div>
     </div>

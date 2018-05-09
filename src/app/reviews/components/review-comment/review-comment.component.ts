@@ -1,3 +1,4 @@
+import { ReviewService } from './../../services/review.service';
 import { ReviewComment } from './../../models/review-comment.model';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -10,10 +11,14 @@ export class ReviewCommentComponent implements OnInit {
 
   @Input()
   comment: ReviewComment;
+  numLikes: number = null;
 
-  constructor() { }
+  constructor(private reviewService: ReviewService) { }
 
   ngOnInit() {
+    this.reviewService
+    .getNumberOfReviewCommentLikes(this.comment.id)
+    .subscribe(it => {this.numLikes = it;  });
   }
 
 }

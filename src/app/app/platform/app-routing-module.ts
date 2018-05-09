@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   // feature module ReviewsModule
   {
-    path: 'reviews',
+    path: 'location/:locationId/reviews',
     loadChildren: 'app/reviews/platform/reviews.module#ReviewsModule'
   }
 ];

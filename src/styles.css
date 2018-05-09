@@ -1,1 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
+body, html {
+  height: 100%;
+}
+
+.item-box {
+  padding: 20px 20px 0 20px;
+  margin-bottom: 10px;
+}
+
+.item-right {
+  padding: 10px 30px 15px 30px;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  background-color:  lightgray;
+  background-color: rgb(251, 251, 251);
+  background-color: white;
+  -webkit-box-shadow: 0px 1px 1px 0px rgb(190, 190, 190);
+  -moz-box-shadow: 0px 1px 1px 0px rgb(190, 190, 190);
+  box-shadow: 0px 1px 1px 0px rgb(190, 190, 190);
+}
+
+.item-header {
+  margin-bottom: 10px;
+}
+
+.item-body {
+  margin-bottom: 10px;
+}
+
+.implicit {
+  color: gray;
+}
+
+.item-person-name {
+  color: darkslategray;
+  font-weight: bold;
+  font-size: 1.4em;
+}
+
+.item-profile-pic {
+  border-radius: 3px;
+}
+
+.pointer {
+  cursor: pointer;
+}

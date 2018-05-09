@@ -6,3 +6,41 @@ h1 {
   margin-bottom: 20px;
 }
 
+.sso-login {
+  text-decoration: none;
+  padding: 10px;
+  border: 1px solid darkslategray;
+  border-radius: 3px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.sso-github {
+  color: #865fc6;
+  border: 1px solid #865fc6;
+}
+
+.sso-github:hover {
+  border: 1px solid #b341cf;
+  color: #b341cf;
+}
+
+.sso-facebook {
+  color: #4565a9;
+  border: 1px solid #4565a9;
+}
+
+.sso-facebook:hover {
+  border: 1px solid blue;
+  color: blue;
+}
+
+.sso-google {
+  color: #f13836;
+  border: 1px solid #f13836;
+}
+
+.sso-google:hover {
+  color: #d62221;
+  border: 1px solid #d62221;
+}

@@ -1,5 +1,19 @@
-nav {
-  height: 50px;
-  background-color: lightgrey;
-  margin-bottom: 20px;
+.navbar {
+  /* height: 60px; */
+  /* line-height: 60px; */
+  /* background-color: #101010 !important; */
+  background-color: #34495e !important;
+
+  margin-bottom: 30px;
 }
+
+.btn-log-in-out {
+  text-decoration: none;
+  color: whitesmoke;
+  border: 1px solid whitesmoke;
+  border-radius: 3px;
+  padding: 7px;
+}
+
+
+

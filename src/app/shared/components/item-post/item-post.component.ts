@@ -3,6 +3,7 @@ import { ReviewService } from './../../../reviews/services/review.service';
 import { AuthService } from './../../../core/services/auth.service';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { User } from '../../../app/models/User';
 
 @Component({
   selector: 'app-item-post',
@@ -16,14 +17,18 @@ export class ItemPostComponent implements OnInit {
   @Input() postForumAnswer = false;
   @Input() postReview = false;
   @Input() postReviewComment = false;
-  @Input() locationId = null;
+  @Input() parentId = null;
   @Output() posted: EventEmitter<any> = new EventEmitter();
+  activeUser: User;
 
   constructor(
     private reviewService: ReviewService,
     private auth: AuthService,
     private formBuilder: FormBuilder,
-  ) { }
+  ) {
+    this.activeUser = this.auth.authStateSource.value;
+    this.auth.authStateChangeEmitted$.subscribe(user => this.activeUser = user);
+  }
 
   ngOnInit() {
     this.createForm();
@@ -33,26 +38,31 @@ export class ItemPostComponent implements OnInit {
     this.form = this.formBuilder.group({description: ''});
   }
 
-  preparePost(): {description: string, locationId: number, datePublished: Date} {
-    const description = this.form.value.description;
-    const datePublished = new Date();
-    return {
-      'description': description,
-      'locationId': this.locationId,
-      'datePublished': datePublished
-    };
+  preparePost(): string {
+    return this.form.value.description;
   }
 
   public onPostClicked() {
     console.log('post clicked');
     if (this.postReview) {
-      console.log('posting review...');
-      const reviewRequest = this.preparePost();
-      console.log(reviewRequest);
-      this.reviewService.postReview(reviewRequest).subscribe(it => {
-        console.log('review posted:');
+      console.log('posting item...');
+      const description = this.preparePost();
+      this.reviewService.postReview(description, this.parentId).subscribe(it => {
+        console.log('item posted:');
         console.log(it);
-        this.posted.emit(it);
+        if (it != null) {
+          this.posted.emit(it);
+        }
+      });
+    } else if (this.postReviewComment) {
+      console.log('posting item...');
+      const description = this.preparePost();
+      this.reviewService.postReviewComment(description, this.parentId).subscribe(it => {
+        console.log('item posted:');
+        console.log(it);
+        if (it != null) {
+          this.posted.emit(it);
+        }
       });
     }
   }

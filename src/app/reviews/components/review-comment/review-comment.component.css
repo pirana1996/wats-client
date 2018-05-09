@@ -1,36 +1,3 @@
-.comment {
-  padding: 10px 10px 0 10px;
-}
-
-.comment-right {
-  padding: 10px 30px 15px 30px;
-  border: 1px solid lightgray;
-  border-radius: 5px;
-}
-
-.implicit {
-  color: gray;
-}
-
-.comment-header {
-  margin-bottom: 10px;
-}
-
-.person-name {
-  color: darkslategray;
-  font-weight: bold;
-  font-size: 1.1em;
-}
-
-.profile-pic {
-  border-radius: 5px;
-}
-
-
-.pointer {
-  cursor: pointer;
-}
-
 #list-comments {
   list-style: none;
 }

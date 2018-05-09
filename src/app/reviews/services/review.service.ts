@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { ReviewComment } from './../models/review-comment.model';
 import { Review } from './../models/review.model';
 import { Injectable } from '@angular/core';
@@ -36,28 +37,63 @@ export class ReviewService {
     throw new Error('Method not implemented');
   }
 
-  public getTopMostPopularComments(reviewId: number, top: number): Observable<any> {
-    return this.http.get<any>(`/api/public/locations/1/reviews/${reviewId}/comments?size=${top}`)
+  public getTopMostPopularComments(reviewId: number, limit: number): Observable<any> {
+    return this.http.get<any>(`api/public/locations/1/reviews/${reviewId}/top-comments?limit=${limit}`)
       .pipe(
-        catchError(this.handleError('getTopMostPopularComments', null))
+        catchError(this.handleError('getTopMostPopularComments', []))
       );
   }
 
-  public postReview(reviewRequest: {description: string, locationId: number, datePublished: Date})
+  public postReview(description: string, locationId: number)
   : Observable<Review> {
-    return this.http.post<Review>(`/api/locations/${reviewRequest.locationId}/reviews/`, reviewRequest)
+    const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
+    const body = `description=${description}`;
+    return this.http.post<Review>(`/api/locations/${locationId}/reviews/`, body, {headers: headers})
     .pipe(
       catchError(this.handleError('postReview', null))
     );
   }
 
-  public getAllCommentsforReview(reviewId: number): Observable<ReviewComment[]> {
-    return this.http.get<any>(`/api/public/locations/1/reviews/${reviewId}/comments`)
+  public postReviewComment(description: string, reviewId: number)
+  : Observable<ReviewComment> {
+    const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
+    const body = `description=${description}`;
+    return this.http.post<ReviewComment>(`/api/locations/9999/reviews/${reviewId}/comments`, body, {headers: headers})
+    .pipe(
+      catchError(this.handleError('postReviewComment', null))
+    );
+  }
+
+  public likeReview(reviewId: number)
+  : Observable<any> {
+    // TODO remote locationid
+    return this.http.post<any>(`/api/locations/1/reviews/${reviewId}/likes`, {})
+    .pipe(
+      catchError(this.handleError('likeReview', null))
+    );
+  }
+
+  public getCommentsforReviewOrderByDateDesc(reviewId: number,  page: number = 0, size: number = 30): Observable<any> {
+    return this.http.get<any>(`/api/public/locations/1/reviews/${reviewId}/comments?page=${page}&size=${size}&sort=datePublished,desc`)
       .pipe(
         catchError(this.handleError('getAllCommentsforReview', null))
       );
   }
 
+  public getNumberOfReviewLikes(reviewId: number): Observable<number> {
+    return this.http.get<number>(`/api/public/locations/1/reviews/${reviewId}/likes/count`)
+      .pipe(
+        catchError(this.handleError('getNumberOfReviewLikes', null))
+      );
+  }
+
+  public getNumberOfReviewCommentLikes(commentId: number): Observable<number> {
+    // TODO change reviewId, change endpoint
+    return this.http.get<number>(`/api/public/locations/1/reviews/1/comments/${commentId}/likes/count`)
+      .pipe(
+        catchError(this.handleError('getNumberOfReviewCommentLikes', null))
+      );
+  }
 
   /**
    * Handle Http operation that failed.

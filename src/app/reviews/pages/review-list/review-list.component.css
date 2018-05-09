@@ -35,6 +35,38 @@
   font-weight: normal;
 }
 
-.page-title {
-  margin-bottom: 20px;
+.sub-header {
+  margin-bottom: 15px;
 }
+
+.not-loaded {
+  background-color: rgb(248, 246, 246);
+  height: 60px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.section-name {
+  padding: 10px;
+}
+
+.page-title {
+  font-size: 2em;
+  color: darkslategray;
+}
+
+#btn-new-review {
+  margin-top: 10px;
+}
+
+.container {
+  padding: 50px;
+}
+
+.main-container {
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  padding: 30px;
+  height:100%;
+}
+

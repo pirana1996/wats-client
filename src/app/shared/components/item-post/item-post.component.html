@@ -1,12 +1,21 @@
 
-<div>
-  <form class="form" [formGroup]="form">
-    <div class="input-group">
-      <textarea formControlName="description" rows=3 class="form-control"
-        placeholder="Free you thoughts..."></textarea>
-    </div><br>
-    <button (click)="onPostClicked()"
-      class="float-right btn btn-success">Post
-    </button>
-  </form>
+<div class="item-post row">
+  <div class="col-1">
+    <img class=img-fluid src={{activeUser.pictureUrl}}>
+  </div>
+  <div class="col-11">
+      <form class="form" [formGroup]="form">
+          <div class="input-group">
+            <textarea formControlName="description" rows=3 class="form-control"
+              placeholder="Free you thoughts..."></textarea>
+          </div><br>
+          <div class="btn-group">
+            <button class="btn btn-outline-primary"><i class="fas fa-paperclip"></i></button>
+            <button class="btn btn-outline-primary"><i class="fas fa-camera-retro"></i></button>
+          </div>
+          <button (click)="onPostClicked()"
+            class="btn btn-primary float-right">Post
+          </button>
+        </form>
+  </div>
 </div>

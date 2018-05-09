@@ -1,35 +1,59 @@
-<div class="main-class">
+<div class="main-container">
 
-<h2>[Location]</h2>
-
-<div id="review" *ngIf=review>
-    <div class="row">
-      <div class="col-1">
-        <img class="img-fluid"
-          src="../../../../assets/images/pp-template.png">
+  <div class="sub-header">
+    <div *ngIf="!location.value" class="not-loaded"></div>
+    <div *ngIf="location.value">
+      <div class="info">
+        <span class="badge badge-danger">{{location.value.name | uppercase}}</span>
+        <span class="badge badge-warning">Review discussion</span>
+        <span class="badge badge-success">{{review.user.username}}</span>
+        <button *ngIf="activeUser && !showForm"
+        (click)="showPostForm()" class="float-right btn btn-outline-primary">
+        <i class="fa fa-plus"></i> Comment
+        </button>
+        <button *ngIf="showForm" (click)="hidePostForm()" class="float-right btn btn-danger"><i
+          class="fa fa-cross"></i> Cancel
+        </button>
       </div>
-      <div class="col-11">
-        <span>{{review.user.name}}</span>
-        <small class="float-right">{{review.datePublished | date }}</small>
+    </div>
+  </div>
+
+  <div class="container">
+
+      <app-review *ngIf=review [review]=review></app-review>
+
+      <div class="row" *ngIf="showForm">
+        <div class="col-1"></div>
+        <div class="col-11">
+          <app-item-post (posted)="onReviewCommentPosted($event)"
+            [postReviewComment]=true [parentId]=review.id></app-item-post>
+        </div>
+      </div>
+
+      <div id="comments" *ngIf="comments.value">
         <div class="row">
-          <div class="col-10">
-            <p>{{review.description}}</p>
+          <div class="col-1"></div>
+          <div class="col-8">
+            <app-review-comment
+              *ngFor="let comment of comments | async"
+              [comment]=comment>
+            </app-review-comment>
           </div>
         </div>
       </div>
-    </div>
+
+      <div *ngIf="!comments.value">
+        <div class="not-loaded"></div>
+        <div class="not-loaded"></div>
+        <div class="not-loaded"></div>
+        <div class="not-loaded"></div>
+        <div class="not-loaded"></div>
+        <div class="not-loaded"></div>
+        <div class="not-loaded"></div>
+      </div>
+
   </div>
 
-  <div id="comments" *ngIf="review.comments">
-    <div class="row">
-      <div class="col-1"></div>
-      <div class="col-11">
-        <app-review-comment
-        *ngFor="let comment of review.comments"
-        [comment]=comment>
-      </app-review-comment>
-      </div>
-    </div>
-  </div>
+
 
 </div>

@@ -1,35 +1,35 @@
-<div class="review">
+<div class="item-box">
   <div class="row">
-    <div class="col-1">
-      <img class="profile-pic img-fluid"
+    <div *ngIf="!review.user.pictureUrl" class="col-1">
+      <img class="item-profile-pic img-fluid"
         src="../../../../assets/images/pp-template.png">
     </div>
-    <div class="col-11 review-right">
-      <div class="review-header">
-        <span class="person-name">{{review.user.name}}</span>
+    <div *ngIf="review.user.pictureUrl" class="col-1">
+      <img class="item-profile-pic img-fluid"
+        src="{{review.user.pictureUrl}}">
+    </div>
+    <div class="col-11 item-right">
+      <div class="item-header">
+        <span class="item-person-name">{{review.user.name}}</span>
         <small class="float-right implicit"><i>{{review.datePublished | date }}</i></small>
       </div>
-      <div class="review-body">
+      <div class="item-body">
         <p>{{review.description}}</p>
       </div>
       <div>
-        <i class="far fa-thumbs-up" style="color:darkslategray">15</i>
-        <button [routerLink]="['/reviews/', review.id]"
-          routerLinkActive="active"
-          class="btn btn-sm btn-outline-info float-right pointer"
-          style="margin-left:5px">
-          full discussion <i class="fa fa-link"></i>
-        </button>
-        <button *ngIf="shouldHideComments" class="float-right btn btn-sm
-          btn-outline-success
-          pointer" (click)="onShowCommentsClicked()">
-          top comments <i class="fa fa-chevron-down"></i>
-        </button>
-        <button *ngIf="!shouldHideComments" class="float-right btn btn-sm
-          btn-outline-danger
-          pointer" (click)="onShowCommentsClicked()">
-          hide comments <i class="fa fa-chevron-up"></i>
-        </button>
+        <i (click)="onLikeClicked()" class="fa fa-thumbs-up like"></i>
+        <span *ngIf="numLikes || numLikes> 0">{{numLikes}}</span>
+        <a (click)="onOpenFUllDiscussionClicked()"
+          class="float-right pointer link-full-discussion ">
+          <small>Full discussion <i class="fa fa-link"></i></small>
+        </a>
+        <a *ngIf="shouldHideComments" class="link-show-top-comments  float-right pointer"
+          (click)="onShowTopCommentsClicked()">
+          <small>Top comments <i class="fa fa-chevron-down"></i></small>
+        </a>
+        <a *ngIf="!shouldHideComments" class="float-right pointer link-hide-top-comments" (click)="onShowTopCommentsClicked()">
+          <small>hide comments <i class="fa fa-chevron-up"></i></small>
+        </a>
       </div>
     </div>
   </div>
