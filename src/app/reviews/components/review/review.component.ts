@@ -1,7 +1,9 @@
+import { AuthService } from './../../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { ReviewService } from '../../services/review.service';
 import { Review } from '../../models/review.model';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ElementRef } from '@angular/core';
+import { User } from '../../../app/models/User';
 
 @Component({
   selector: 'app-review',
@@ -12,10 +14,12 @@ export class ReviewComponent implements OnInit {
   @Input() review: Review;
   @Input() locationId: number;
   shouldHideComments = true;
+  @Output() notLoggedin = new EventEmitter<any>();
 
   constructor(
     private reviewService: ReviewService,
-    private router: Router
+    private router: Router,
+    private el: ElementRef
   ) {}
 
   ngOnInit() {
@@ -34,9 +38,15 @@ export class ReviewComponent implements OnInit {
   }
 
   onLikeClicked() {
-    console.log('like clicked');
-    this.reviewService.likeReview(this.review.id).subscribe(it => {
-      console.log('first like? ', it);
+    this.reviewService.likeReview(this.review.id).subscribe(liked => {
+      console.log('first like? ', liked);
+      if (liked === true) {
+        this.review.numLikes++;
+      } else if (liked === false) {
+        this.review.numLikes--;
+      } else if (liked === null) {
+        this.notLoggedin.emit(this.el.nativeElement.offsetTop);
+      }
     });
   }
 

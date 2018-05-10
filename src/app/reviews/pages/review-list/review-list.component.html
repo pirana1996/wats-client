@@ -1,3 +1,8 @@
+<div *ngIf="showNotLoggedIn" class="alert alert-danger text-center">
+  <span >Please log in to perform this action</span>
+  <button class="btn btn-primary" (click)="onLoginClicked()">Log in</button>
+</div>
+
 <div class="main-container">
 
   <div class="sub-header">
@@ -27,7 +32,7 @@
     <br>
 
     <div *ngIf="reviews.value">
-      <app-review *ngFor="let review of reviews | async" [review]=review [locationId]=location.value.id></app-review>
+      <app-review *ngFor="let review of reviews | async" (notLoggedin)="showNotLoggedInMessage($event)" [review]=review [locationId]=location.value.id></app-review>
     </div>
 
     <div *ngIf="!reviews.value">

@@ -3,13 +3,14 @@ import { Observable } from 'rxjs/Rx';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Location } from './../../../app/models/Location';
 import { LocationService } from '../../../core/services/location.service';
-import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
+import { ActivatedRoute, Router, NavigationStart, NavigationExtras } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { ReviewService } from '../../services/review.service';
 import { Review } from '../../models/review.model';
 import { Component, OnInit } from '@angular/core';
 import { PageInfo } from '../../../app/models/page-info.model';
 import { User } from '../../../app/models/User';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-review-list',
@@ -23,13 +24,14 @@ export class ReviewListComponent implements OnInit {
   showForm = false;
   activeUser: User = null;
   location = new BehaviorSubject(null); // to control it in the template
+  showNotLoggedIn = false;
 
   constructor(
     private reviewService: ReviewService,
     private auth: AuthService,
     private route: ActivatedRoute,
     private router: Router,
-    private locationService: LocationService
+    private locationService: LocationService,
   ) {
     this.activeUser = this.auth.authStateSource.value;
     this.auth.authStateChangeEmitted$.subscribe(
@@ -93,5 +95,17 @@ export class ReviewListComponent implements OnInit {
     const next = this.reviews.value;
     next.unshift(review);
     this.reviews.next(next);
+  }
+
+  showNotLoggedInMessage(event) {
+    this.showNotLoggedIn = true;
+    window.scrollTo(0, 0);
+  }
+
+  onLoginClicked() {
+    const redirectBackTo =
+    `/location/${this.location.value.id}/reviews?page=${this.pageInfo.number}`;
+    this.router.navigate(['/login'],
+    { queryParams: { 'redirectBackTo': redirectBackTo} });
   }
 }

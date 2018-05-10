@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './../../../core/services/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -13,15 +13,18 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
+  redirectBackTo = '';
 
   constructor(
     private auth: AuthService,
     private http: HttpClient,
     private router: Router,
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
+    this.redirectBackTo = this.route.snapshot.queryParams['redirectBackTo'];
     this.createForm();
   }
 
@@ -42,7 +45,13 @@ export class LoginComponent implements OnInit {
     return this.http.post<User>('/api/public/login', credentials)
       .subscribe(user => {
         this.auth.emitAuthStateChange(user);
-        this.router.navigateByUrl('/reviews');
+        if (this.redirectBackTo) {
+          console.log('ovde treba: ', this.redirectBackTo);
+          this.router.navigateByUrl(this.redirectBackTo);
+        } else {
+          console.log('onde');
+          this.router.navigateByUrl('/reviews');
+        }
     });
   }
 
