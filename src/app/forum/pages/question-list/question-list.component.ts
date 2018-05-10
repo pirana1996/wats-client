@@ -1,7 +1,7 @@
 import { Question } from './../../models/Question';
 import { Component, OnInit } from '@angular/core';
-import {ForumService} from '../../services/forum-service.service';
-import {PageInfo} from '../../../app/models/page-info.model';
+import { ForumService } from '../../services/forum-service.service';
+import { PageInfo } from '../../../app/models/page-info.model';
 // tslint:disable-next-line:import-blacklist
 import { BehaviorSubject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -15,12 +15,13 @@ import { User } from '../../../app/models/User';
   styleUrls: ['./question-list.component.css']
 })
 export class QuestionListComponent implements OnInit {
-
   pageInfo: PageInfo;
   showForm = false;
   activeUser: User = null;
   questions: BehaviorSubject<Question[]> = new BehaviorSubject(null);
   location = new BehaviorSubject(null);
+  showNotLoggedIn = false;
+  couldNotLoad = false;
 
   constructor(
     public forumService: ForumService,
@@ -43,13 +44,18 @@ export class QuestionListComponent implements OnInit {
       if (!page) {
         page = 0;
       }
-      this.forumService.getQuestionsByLocationSoredByDateDesc(location.id, page)
-      .subscribe(it => {
-        const { content, ...pageInfo } = it;
-        this.questions = new BehaviorSubject(content);
-        this.pageInfo = pageInfo;
-        // this.initPageNumbers(this.pageInfo.totalPages);)
-      });
+      this.forumService
+        .getQuestionsByLocationSoredByDateDesc(location.id, page)
+        .subscribe(it => {
+          if (it) {
+            const { content, ...pageInfo } = it;
+            this.questions = new BehaviorSubject(content);
+            this.pageInfo = pageInfo;
+            // this.initPageNumbers(this.pageInfo.totalPages);)
+          } else {
+            this.couldNotLoad = true;
+          }
+        });
     });
   }
 
@@ -66,5 +72,19 @@ export class QuestionListComponent implements OnInit {
     const next = this.questions.value;
     next.unshift(q);
     this.questions.next(next);
+  }
+
+  showNotLoggedInMessage() {
+    this.showNotLoggedIn = true;
+    window.scrollTo(0, 0);
+  }
+
+  onLoginClicked() {
+    const redirectBackTo = `/location/${
+      this.location.value.id
+    }/forum/questions?page=${this.pageInfo.number}`;
+    this.router.navigate(['/login'], {
+      queryParams: { redirectBackTo: redirectBackTo }
+    });
   }
 }

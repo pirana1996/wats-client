@@ -1,5 +1,9 @@
+<div *ngIf=couldNotLoad class="alert alert-warning text-center">
+  Could not fetch data from server ...
+</div>
+
 <div *ngIf="showNotLoggedIn" class="alert alert-danger text-center">
-  <span >Please log in to perform this action</span>
+  <span>Please log in to perform this action</span>
   <button class="btn btn-primary" (click)="onLoginClicked()">Log in</button>
 </div>
 
@@ -25,14 +29,17 @@
 
   <div class="container">
 
-    <app-item-post (posted)="onReviewPosted($event)" *ngIf="location.value && showForm"
+    <app-item-post (posted)="onReviewPosted($event)" *ngIf="location.value &&
+      showForm"
       [postReview]=true [parentId]=location.value.id>
     </app-item-post>
 
     <br>
 
     <div *ngIf="reviews.value">
-      <app-review *ngFor="let review of reviews | async" (notLoggedin)="showNotLoggedInMessage()" [review]=review [location]=location.value></app-review>
+      <app-review *ngFor="let review of reviews | async"
+        (notLoggedin)="showNotLoggedInMessage()" [review]=review
+        [location]=location.value></app-review>
     </div>
 
     <div *ngIf="!reviews.value">
@@ -45,7 +52,7 @@
       <div class="not-loaded"></div>
     </div>
 
-    <div id="pagination">
+    <div id="pagination" *ngIf=pageInfo>
       <ul>
         <span id="prev-page" *ngIf="pageInfo.first==false"
           (click)=getPage(pageInfo.number-1)><<</span>

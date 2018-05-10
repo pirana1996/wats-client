@@ -3,7 +3,7 @@ import { AuthService } from './../../../core/services/auth.service';
 import { ReviewService } from './../../services/review.service';
 import { Review } from './../../models/review.model';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../../app/models/User';
 // tslint:disable-next-line:import-blacklist
 import { BehaviorSubject } from 'rxjs';
@@ -22,12 +22,15 @@ export class ReviewDiscussionComponent implements OnInit {
   activeUser: User = null;
   location = new BehaviorSubject(null);
   showForm = false;
+  showNotLoggedIn = false;
+  couldNotLoad = false;
 
   constructor(
     private reviewService: ReviewService,
     private route: ActivatedRoute,
     private auth: AuthService,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private router: Router
   ) {
     this.activeUser = this.auth.authStateSource.value;
     this.auth.authStateChangeEmitted$.subscribe(
@@ -47,11 +50,17 @@ export class ReviewDiscussionComponent implements OnInit {
   loadPage(reviewId: number, page: number = 0, size: number = 30) {
     this.reviewService.getReviewById(reviewId).subscribe(review => {
       this.review = review;
-      this.reviewService.getCommentsForReviewOrderByDateDesc(this.review.id).subscribe(it => {
-        const { content, ...pageInfo } = it;
-        this.comments.next(content);
-        this.pageInfo = pageInfo;
-      });
+      this.reviewService
+        .getCommentsForReviewOrderByDateDesc(this.review.id)
+        .subscribe(it => {
+          if (it) {
+            const { content, ...pageInfo } = it;
+            this.comments.next(content);
+            this.pageInfo = pageInfo;
+          } else {
+            this.couldNotLoad = true;
+          }
+        });
     });
   }
 
@@ -68,5 +77,19 @@ export class ReviewDiscussionComponent implements OnInit {
     const next = this.comments.value;
     next.unshift(comment);
     this.comments.next(next);
+  }
+
+  onLoginClicked() {
+    const redirectBackTo = `/location/${this.location.value.id}/reviews/${
+      this.review.id
+    }/?page=${this.pageInfo.number}`;
+    this.router.navigate(['/login'], {
+      queryParams: { redirectBackTo: redirectBackTo }
+    });
+  }
+
+  showNotLoggedInMessage() {
+    this.showNotLoggedIn = true;
+    window.scrollTo(0, 0);
   }
 }

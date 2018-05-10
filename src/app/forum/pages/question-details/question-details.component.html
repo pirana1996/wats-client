@@ -1,3 +1,12 @@
+<div *ngIf=couldNotLoad class="alert alert-warning text-center">
+  Could not fetch data from server ...
+</div>
+
+<div *ngIf="showNotLoggedIn" class="alert alert-danger text-center">
+  <span>Please log in to perform this action</span>
+  <button class="btn btn-primary" (click)="onLoginClicked()">Log in</button>
+</div>
+
 <div class="main-container">
 
   <div class="sub-header">
@@ -20,13 +29,16 @@
 
   <div class="container" *ngIf=question>
 
-      <app-question *ngIf=question [question]=question [location]=location.value></app-question>
+      <app-question *ngIf=question
+      [question]=question
+      [location]=location.value
+      (notLoggedIn)=showNotLoggedInMessage()></app-question>
 
       <div class="row" *ngIf="showForm">
         <div class="col-1"></div>
         <div class="col-11">
           <app-item-post (posted)="onAnswerPosted($event)"
-            [postForumQuestion]=true [parentId]=question.id></app-item-post>
+            [postForumAnswer]=true [parentId]=question.id></app-item-post>
         </div>
       </div>
 

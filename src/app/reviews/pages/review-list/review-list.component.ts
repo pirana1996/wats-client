@@ -25,6 +25,7 @@ export class ReviewListComponent implements OnInit {
   activeUser: User = null;
   location = new BehaviorSubject(null); // to control it in the template
   showNotLoggedIn = false;
+  couldNotLoad = false;
 
   constructor(
     private reviewService: ReviewService,
@@ -61,10 +62,14 @@ export class ReviewListComponent implements OnInit {
     this.reviewService
       .getReviewsByLocationSoredByDateDesc(locationId, page)
       .subscribe(it => {
-        const { content, ...pageInfo } = it;
-        this.reviews = new BehaviorSubject(content);
-        this.pageInfo = pageInfo;
-        this.initPageNumbers(this.pageInfo.totalPages);
+        if (it) {
+          const { content, ...pageInfo } = it;
+          this.reviews = new BehaviorSubject(content);
+          this.pageInfo = pageInfo;
+          this.initPageNumbers(this.pageInfo.totalPages);
+        } else {
+          this.couldNotLoad = true;
+        }
       });
   }
 

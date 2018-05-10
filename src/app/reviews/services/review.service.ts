@@ -29,7 +29,7 @@ export class ReviewService {
   public getReviewsByLocationSoredByDateDesc(locationId: number, page: number = 0, size: number = 5): Observable<any> {
     return this.http.get<any>(`/api/public/locations/${locationId}/reviews?page=${page}&size=${size}&sort=datePublished,desc`)
       .pipe(
-        catchError(this.handleError('getReviewsByPage', null))
+        catchError(this.handleError('getReviewsByLocationSoredByDateDesc', null))
       );
   }
 

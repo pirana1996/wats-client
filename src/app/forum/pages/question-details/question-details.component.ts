@@ -24,6 +24,8 @@ export class QuestionDetailsComponent implements OnInit {
   location = new BehaviorSubject(null);
   activeUser: User = null;
   showForm = false;
+  showNotLoggedIn = false;
+  couldNotLoad = false;
 
   // tmp
   page: string;
@@ -79,6 +81,20 @@ export class QuestionDetailsComponent implements OnInit {
     const next = this.answers.value;
     next.unshift(comment);
     this.answers.next(next);
+  }
+
+  onLoginClicked() {
+    const redirectBackTo = `/location/${
+      this.location.value.id
+    }/forum/questions/${this.question.id}/answers?page=${this.pageInfo.number}`;
+    this.router.navigate(['/login'], {
+      queryParams: { redirectBackTo: redirectBackTo }
+    });
+  }
+
+  showNotLoggedInMessage() {
+    this.showNotLoggedIn = true;
+    window.scrollTo(0, 0);
   }
 
   // ngOnInit() {

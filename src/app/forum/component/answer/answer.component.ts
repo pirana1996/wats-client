@@ -10,7 +10,7 @@ import {Answer} from '../../models/Answer';
 export class AnswerComponent implements OnInit {
 
   @Input() answer: Answer;
-  @Output() notLoggedin = new EventEmitter<any>();
+  @Output() notLoggedIn = new EventEmitter<any>();
 
   constructor(private forumService: ForumService) { }
 
@@ -24,7 +24,7 @@ export class AnswerComponent implements OnInit {
       } else if (liked === false) {
         this.answer.numLikes--;
       } else if (liked === null) {
-        this.notLoggedin.emit();
+        this.notLoggedIn.emit();
       }
     });
   }

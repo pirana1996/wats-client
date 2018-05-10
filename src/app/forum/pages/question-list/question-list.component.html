@@ -1,3 +1,12 @@
+<div *ngIf=couldNotLoad class="alert alert-warning text-center">
+    Could not fetch data from server ...
+  </div>
+
+<div *ngIf="showNotLoggedIn" class="alert alert-danger text-center">
+    <span >Please log in to perform this action</span>
+    <button class="btn btn-primary" (click)="onLoginClicked()">Log in</button>
+  </div>
+
 <div class="main-container">
 
   <div class="sub-header">
@@ -27,7 +36,10 @@
     <br>
 
     <div *ngIf="questions.value">
-      <app-question *ngFor="let question of questions | async" [question]=question [location]=location.value></app-question>
+      <app-question *ngFor="let question of questions | async"
+      [question]=question
+      [location]=location.value
+      (notLoggedin)=showNotLoggedInMessage()></app-question>
     </div>
 
     <div *ngIf="!questions.value">

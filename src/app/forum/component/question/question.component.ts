@@ -14,7 +14,7 @@ export class QuestionComponent implements OnInit {
   @Input() question: Question;
   @Input() location: Location;
   shouldHideComments = true;
-  @Output() notLoggedin = new EventEmitter<any>();
+  @Output() notLoggedIn = new EventEmitter<any>();
 
   constructor(
     private forumService: ForumService,
@@ -46,7 +46,7 @@ export class QuestionComponent implements OnInit {
   }
 
   emitNotLoggedIn() {
-    this.notLoggedin.emit();
+    this.notLoggedIn.emit();
   }
 
 }
