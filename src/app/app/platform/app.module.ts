@@ -9,7 +9,6 @@ import { SharedModule } from '../../shared/shared.module';
 import { CustomHttpInterceptor } from '../services/custom-http-interceptor';
 
 import { AppComponent } from '../pages/app/app.component';
-import { SomeComponent } from '../pages/some/some.component';
 import { LoginComponent } from '../pages/login/login.component';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { SaveTokenComponent } from '../pages/save-token/save-token.component';
@@ -18,7 +17,6 @@ import { HomeComponent } from '../pages/home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
-    SomeComponent,
     LoginComponent,
     NavbarComponent,
     SaveTokenComponent,

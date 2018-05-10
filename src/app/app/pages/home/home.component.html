@@ -1,3 +1,14 @@
-<p>
-  home works!
-</p>
+<div class="input-group">
+  <input #box type="text" (keyup)="search(box.value)" class="form-control" placeholder="Find your next place ...">
+</div>
+
+<div *ngIf="locations && locations.length > 0" class="search-result-box box-shadow">
+  <div *ngFor="let l of locations" class="search-result-item">
+    <h4 class="location-name">{{l.name}}</h4>
+    <span [routerLink]="['/location', l.id, 'reviews']" class="bad badge badge-success">Reviews</span>
+    <span [routerLink]="['/location', l.id, 'forum/questions']" class="bad badge badge-primary">Forum</span>
+    <span class="bad bad badge badge-warning">Events</span>
+    <span class="bad badge badge-info">Ads</span>
+  </div>
+</div>
+

@@ -1,0 +1,30 @@
+.search-result-box {
+  border-radius: 0px 5px 5px 5px;
+  border-color: #bfdeff;
+  border-top: none;
+
+  .search-result-item {
+    padding: 10px;
+    font-size: 1.3em;
+
+    .location-name:hover {
+      cursor: pointer;
+    }
+
+    .bad {
+      display: none;
+    }
+  }
+
+  .search-result-item:hover {
+
+    .bad {
+      display: inline;
+      cursor: pointer;
+      border-radius: 20px;
+      font-size: 0.6em;
+    }
+  }
+}
+
+
