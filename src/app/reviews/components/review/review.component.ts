@@ -1,8 +1,6 @@
-import { Location } from './../../../app/models/Location';
 import { Router } from '@angular/router';
-import { ReviewService } from './../../services/review.service';
-import { AuthService } from './../../../core/services/auth.service';
-import { Review } from './../../models/review.model';
+import { ReviewService } from '../../services/review.service';
+import { Review } from '../../models/review.model';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -12,8 +10,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ReviewComponent implements OnInit {
   @Input() review: Review;
+  @Input() locationId: number;
   shouldHideComments = true;
-  numLikes: number = null;
 
   constructor(
     private reviewService: ReviewService,
@@ -21,9 +19,6 @@ export class ReviewComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.reviewService
-      .getNumberOfReviewLikes(this.review.id)
-      .subscribe(it => this.numLikes = it);
   }
 
   onShowTopCommentsClicked() {
@@ -41,12 +36,11 @@ export class ReviewComponent implements OnInit {
   onLikeClicked() {
     console.log('like clicked');
     this.reviewService.likeReview(this.review.id).subscribe(it => {
-      this.numLikes += 1;
-      console.log(it);
+      console.log('first like? ', it);
     });
   }
 
-  onOpenFUllDiscussionClicked() {
-    this.router.navigate(['/location/' + this.review.location.id + '/reviews/' + this.review.id]);
+  onOpenFullDiscussionClicked() {
+    this.router.navigate(['/location/' + this.locationId + '/reviews/' + this.review.id]);
   }
 }

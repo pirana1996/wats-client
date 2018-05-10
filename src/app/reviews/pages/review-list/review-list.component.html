@@ -1,8 +1,8 @@
 <div class="main-container">
 
   <div class="sub-header">
-    <div *ngIf="!location.value" class="not-loaded"></div>
-    <div *ngIf="location.value">
+    <div *ngIf="!location | async" class="not-loaded"></div>
+    <div *ngIf="location | async">
       <div class="info">
         <span class="badge badge-danger">{{location.value.name | uppercase}}</span>
         <span class="badge badge-warning">Reviews</span>
@@ -27,7 +27,7 @@
     <br>
 
     <div *ngIf="reviews.value">
-      <app-review *ngFor="let review of reviews | async" [review]=review></app-review>
+      <app-review *ngFor="let review of reviews | async" [review]=review [locationId]=location.value.id></app-review>
     </div>
 
     <div *ngIf="!reviews.value">

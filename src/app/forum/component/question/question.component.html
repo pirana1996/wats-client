@@ -1,43 +1,46 @@
-<div id="question">
-  <div class="row" *ngIf="question">
-    <div class="col-1">
-      <img class="img-fluid"
-           src="../../../../assets/images/pp-template.png">
+<div class="item-box">
+  <div class="row">
+    <div *ngIf="!question.user.pictureUrl" class="col-1">
+      <img class="item-profile-pic img-fluid"
+        src="../../../../assets/images/pp-template.png">
     </div>
-    <div class="col-11">
-      <span>{{question.user.name}}</span>
-      <a href="/location/{{question.location.id}}/forum/questions/{{question.id}}/answers?page=0&size=2">
-        <small class="float-right">{{question.date_published | date }}</small>
-      </a>
-      <div class="row">
-        <div class="col-10">
-          <p>{{question.description}}</p>
-        </div>
+    <div *ngIf="question.user.pictureUrl" class="col-1">
+      <img class="item-profile-pic img-fluid"
+        src="{{question.user.pictureUrl}}">
+    </div>
+    <div class="col-11 item-right">
+      <div class="item-header">
+        <span class="item-person-name">{{question.user.name}}</span>
+        <small class="float-right implicit"><i>{{question.datePublished | date }}</i></small>
+      </div>
+      <div class="item-body">
+        <p>{{question.description}}</p>
+      </div>
+      <div>
+        <a (click)="onOpenFullDiscussionClicked()"
+          class="float-right pointer link-full-discussion ">
+          <small>All answers <i class="fa fa-link"></i></small>
+        </a>
+        <a *ngIf="shouldHideComments" class="link-show-top-comments  float-right pointer"
+          (click)="onShowTopAnswersClicked()">
+          <small>Top answers <i class="fa fa-chevron-down"></i></small>
+        </a>
+        <a *ngIf="!shouldHideComments" class="float-right pointer link-hide-top-comments" (click)="onShowTopAnswersClicked()">
+          <small>Hide comments <i class="fa fa-chevron-up"></i></small>
+        </a>
       </div>
     </div>
   </div>
-  <small (click)="openFullDiscussion()" class="badge badge-primary float-right pointer" style="margin-left: 5px">
-    open full discussion
-    <i class="fa fa-chevron-right"></i>
-  </small>
-  <small *ngIf="shouldHideComments" class="float-right badge badge-success pointer" (click)="onShowCommentsClicked()">
-    show top comments <i class="fa fa-chevron-down"></i>
-  </small>
-  <small *ngIf="!shouldHideComments" class="float-right badge badge-danger pointer" (click)="onShowCommentsClicked()">
-    hide comments <i class="fa fa-chevron-up"></i>
-  </small>
 </div>
 
-<ul id="list-comments" *ngIf="question.answers && !shouldHideComments">
-  <li *ngFor="let answer of question.answers">
-    <!--<app-review-comment [comment]=comment></app-review-comment>-->
-    <app-answer [answer]="answer"></app-answer>
-  </li>
-</ul>
-
-
-<!--<div *ngIf="question">-->
-<!--<a href="/location/{{question.location.id}}/forum/questions/{{question.id}}/answers?page=0&size=2">-->
-<!--{{question.date_published}}</a>-->
-<!--{{question.description}} {{question.user.name}}-->
-<!--</div>-->
+<div *ngIf="question.answers && !shouldHideComments">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-8">
+      <app-answer
+        *ngFor="let answer of question.answers"
+        [answer]=answer>
+      </app-answer>
+    </div>
+  </div>
+</div>

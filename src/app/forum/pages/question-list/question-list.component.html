@@ -1,7 +1,59 @@
-<div>
-  <ul>
-    <li *ngFor="let q of forumService.questions">
-      <app-question [question]="q"></app-question>
-    </li>
-  </ul>
+<div class="main-container">
+
+  <div class="sub-header">
+    <div *ngIf="!location.value" class="not-loaded"></div>
+    <div *ngIf="location.value">
+      <div class="info">
+        <span class="badge badge-danger">{{location.value.name | uppercase}}</span>
+        <span class="badge badge-warning">Forum</span>
+        <button *ngIf="activeUser && !showForm"
+          (click)="showPostForm()" class="float-right btn btn-outline-primary">
+          <i class="fa fa-plus"></i> Question
+        </button>
+        <button *ngIf="showForm" (click)="hidePostForm()" class="float-right btn
+          btn-danger"><i
+            class="fa fa-cross"></i> Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <app-item-post (posted)="onQuestionPosted($event)" *ngIf="showForm"
+      [postForumQuestion]=true [parentId]=location.value.id>
+    </app-item-post>
+
+    <br>
+
+    <div *ngIf="questions.value">
+      <app-question *ngFor="let question of questions | async" [question]=question [location]=location.value></app-question>
+    </div>
+
+    <div *ngIf="!questions.value">
+      <div class="not-loaded"></div>
+      <div class="not-loaded"></div>
+      <div class="not-loaded"></div>
+      <div class="not-loaded"></div>
+      <div class="not-loaded"></div>
+      <div class="not-loaded"></div>
+      <div class="not-loaded"></div>
+    </div>
+
+    <!-- <div id="pagination">
+      <ul>
+        <span id="prev-page" *ngIf="pageInfo.first==false"
+          (click)=getPage(pageInfo.number-1)><<</span>
+        <li *ngFor="let number of numbers"
+          (click)=getPage(number)
+          [ngClass]="{'active': pageInfo.number==number, 'disabled':
+          pageInfo.number!=number}">
+          {{number}}
+        </li>
+        <span id="next-page" *ngIf="pageInfo.last==false"
+          (click)=getPage(pageInfo.number+1)>>></span>
+      </ul>
+    </div> -->
+  </div>
+
 </div>

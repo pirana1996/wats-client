@@ -11,14 +11,17 @@ export class ReviewCommentComponent implements OnInit {
 
   @Input()
   comment: ReviewComment;
-  numLikes: number = null;
 
   constructor(private reviewService: ReviewService) { }
 
   ngOnInit() {
-    this.reviewService
-    .getNumberOfReviewCommentLikes(this.comment.id)
-    .subscribe(it => {this.numLikes = it;  });
+  }
+
+  onLikeClicked() {
+    console.log('like clicked');
+    this.reviewService.likeReviewComment(this.comment.id).subscribe(it => {
+      console.log('first like? ', it);
+    });
   }
 
 }

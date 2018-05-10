@@ -47,7 +47,7 @@ export class ReviewDiscussionComponent implements OnInit {
   loadPage(reviewId: number, page: number = 0, size: number = 30) {
     this.reviewService.getReviewById(reviewId).subscribe(review => {
       this.review = review;
-      this.reviewService.getCommentsforReviewOrderByDateDesc(this.review.id).subscribe(it => {
+      this.reviewService.getCommentsForReviewOrderByDateDesc(this.review.id).subscribe(it => {
         const { content, ...pageInfo } = it;
         this.comments.next(content);
         this.pageInfo = pageInfo;

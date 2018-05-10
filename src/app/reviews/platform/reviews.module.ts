@@ -16,9 +16,14 @@ import { ReviewCommentComponent } from '../components/review-comment/review-comm
     ReviewsRoutingModule,
     SharedModule.forRoot(),
   ],
-  declarations: [ReviewListComponent, ReviewComponent, ReviewCommentComponent, ReviewDiscussionComponent],
+  declarations: [
+    ReviewListComponent,
+    ReviewComponent,
+    ReviewCommentComponent,
+    ReviewDiscussionComponent
+  ],
   providers: [
-    ReviewService,
+    // ReviewService, // TEMPORARY MOVED TO THE CORE SERVICE !!!!
     {
       provide: HTTP_INTERCEPTORS,
       useClass: CustomHttpInterceptor,

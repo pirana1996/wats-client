@@ -1,9 +1,8 @@
-import { SaveTokenComponent } from './../pages/save-token/save-token.component';
+import { SaveTokenComponent } from '../pages/save-token/save-token.component';
 import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
-import {AppComponent} from '../pages/app/app.component';
 import {SomeComponent} from '../pages/some/some.component';
-import { LoginComponent } from './../pages/login/login.component';
+import { LoginComponent } from '../pages/login/login.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent, pathMatch: 'full'},

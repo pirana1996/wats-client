@@ -8,6 +8,7 @@ export class Review {
               public datePublished: string,
               public location: Location,
               public user: User,
-              public comments: ReviewComment[]
+              public comments: ReviewComment[],
+              public numLikes: number
               ) {}
 }

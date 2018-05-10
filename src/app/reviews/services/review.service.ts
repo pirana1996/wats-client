@@ -46,9 +46,7 @@ export class ReviewService {
 
   public postReview(description: string, locationId: number)
   : Observable<Review> {
-    const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
-    const body = `description=${description}`;
-    return this.http.post<Review>(`/api/locations/${locationId}/reviews/`, body, {headers: headers})
+    return this.http.post<Review>(`/api/locations/${locationId}/reviews/`, description)
     .pipe(
       catchError(this.handleError('postReview', null))
     );
@@ -56,42 +54,35 @@ export class ReviewService {
 
   public postReviewComment(description: string, reviewId: number)
   : Observable<ReviewComment> {
-    const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
-    const body = `description=${description}`;
-    return this.http.post<ReviewComment>(`/api/locations/9999/reviews/${reviewId}/comments`, body, {headers: headers})
+    return this.http.post<ReviewComment>(`/api/locations/9999/reviews/${reviewId}/comments`, description)
     .pipe(
       catchError(this.handleError('postReviewComment', null))
     );
   }
 
   public likeReview(reviewId: number)
-  : Observable<any> {
-    // TODO remote locationid
-    return this.http.post<any>(`/api/locations/1/reviews/${reviewId}/likes`, {})
+  : Observable<boolean> {
+    // TODO remote locationId
+    return this.http.post<boolean>(`/api/locations/1/reviews/${reviewId}/likes`, {})
     .pipe(
       catchError(this.handleError('likeReview', null))
     );
   }
 
-  public getCommentsforReviewOrderByDateDesc(reviewId: number,  page: number = 0, size: number = 30): Observable<any> {
+  public likeReviewComment(commentId: number)
+  : Observable<boolean> {
+    // TODO remote locationId
+    // TODO remote reviewId
+    return this.http.post<boolean>(`/api/locations/1/reviews/1/comments/likes`, {})
+      .pipe(
+        catchError(this.handleError('likeReview', null))
+      );
+  }
+
+  public getCommentsForReviewOrderByDateDesc(reviewId: number, page: number = 0, size: number = 30): Observable<any> {
     return this.http.get<any>(`/api/public/locations/1/reviews/${reviewId}/comments?page=${page}&size=${size}&sort=datePublished,desc`)
       .pipe(
         catchError(this.handleError('getAllCommentsforReview', null))
-      );
-  }
-
-  public getNumberOfReviewLikes(reviewId: number): Observable<number> {
-    return this.http.get<number>(`/api/public/locations/1/reviews/${reviewId}/likes/count`)
-      .pipe(
-        catchError(this.handleError('getNumberOfReviewLikes', null))
-      );
-  }
-
-  public getNumberOfReviewCommentLikes(commentId: number): Observable<number> {
-    // TODO change reviewId, change endpoint
-    return this.http.get<number>(`/api/public/locations/1/reviews/1/comments/${commentId}/likes/count`)
-      .pipe(
-        catchError(this.handleError('getNumberOfReviewCommentLikes', null))
       );
   }
 

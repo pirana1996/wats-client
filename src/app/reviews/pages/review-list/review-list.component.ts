@@ -1,15 +1,14 @@
-import { LocationService } from './../../../core/services/location.service';
-import { ActivatedRoute, Router, ActivationEnd, NavigationStart } from '@angular/router';
-import { Location } from './../../../app/models/Location';
+// tslint:disable-next-line:import-blacklist
+import { Observable } from 'rxjs/Rx';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { AuthService } from './../../../core/services/auth.service';
-import { ReviewService } from './../../services/review.service';
-import { Review } from './../../models/review.model';
-import { HttpClient } from '@angular/common/http';
+import { Location } from './../../../app/models/Location';
+import { LocationService } from '../../../core/services/location.service';
+import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
+import { ReviewService } from '../../services/review.service';
+import { Review } from '../../models/review.model';
 import { Component, OnInit } from '@angular/core';
 import { PageInfo } from '../../../app/models/page-info.model';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
 import { User } from '../../../app/models/User';
 
 @Component({
@@ -23,7 +22,7 @@ export class ReviewListComponent implements OnInit {
   numbers: number[] = [];
   showForm = false;
   activeUser: User = null;
-  location = new BehaviorSubject(null);
+  location = new BehaviorSubject(null); // to control it in the template
 
   constructor(
     private reviewService: ReviewService,
@@ -36,42 +35,41 @@ export class ReviewListComponent implements OnInit {
     this.auth.authStateChangeEmitted$.subscribe(
       user => (this.activeUser = user)
     );
-    router.events
-    .filter(event => event instanceof NavigationStart)
-    .subscribe((event: NavigationStart) => {
-      const re = /.*(?:\D|^)(\d+)/; // extract only the last number from url (...?page=12)
-      const page = +re.exec(event.url)[1];
-      this.getReviewsOrderByDateDescPaged(page);
-    });
   }
 
   ngOnInit() {
-    const locationId = this.route.snapshot.params['locationId'];
-    this.locationService.getLocation(locationId).subscribe(it => {
-      this.location.next(it);
-      let page = this.route.snapshot.params['page'];
-      if (!page) {
-        page = 0;
+    let page;
+    let size;
+    this.route.queryParamMap.subscribe(map => {
+      page = map.get('page');
+      page = page ? page : 0;
+      size = map.get('size');
+      size = size ? size : 20;
+      const locationId = this.route.snapshot.params['locationId'];
+      if (!this.location.value) {
+        this.locationService.getLocation(locationId).subscribe(location => {
+          this.location.next(location);
+        });
       }
-      this.getReviewsOrderByDateDescPaged(page);
+      this.getReviews(locationId, page);
     });
   }
 
-  getPage(page: number, size: number = 5) {
-    this.router.navigateByUrl(
-      `location/${this.location.value.id}/reviews?page=${page}`
-    );
-  }
-
-  private getReviewsOrderByDateDescPaged(page: number) {
+  private getReviews(locationId: number, page: number) {
     this.reviewService
-      .getReviewsByLocationSoredByDateDesc(1, page)
+      .getReviewsByLocationSoredByDateDesc(locationId, page)
       .subscribe(it => {
         const { content, ...pageInfo } = it;
         this.reviews = new BehaviorSubject(content);
         this.pageInfo = pageInfo;
         this.initPageNumbers(this.pageInfo.totalPages);
       });
+  }
+
+  getPage(page: number, size: number = 5) {
+    this.router.navigateByUrl(
+      `location/${this.location.value.id}/reviews?page=${page}`
+    );
   }
 
   private initPageNumbers(n: number) {

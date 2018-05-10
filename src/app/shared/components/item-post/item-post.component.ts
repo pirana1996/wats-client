@@ -23,6 +23,7 @@ export class ItemPostComponent implements OnInit {
 
   constructor(
     private reviewService: ReviewService,
+    private forumService: ForumService,
     private auth: AuthService,
     private formBuilder: FormBuilder,
   ) {
@@ -58,6 +59,16 @@ export class ItemPostComponent implements OnInit {
       console.log('posting item...');
       const description = this.preparePost();
       this.reviewService.postReviewComment(description, this.parentId).subscribe(it => {
+        console.log('item posted:');
+        console.log(it);
+        if (it != null) {
+          this.posted.emit(it);
+        }
+      });
+    } else if (this.postForumQuestion) {
+      console.log('posting item...');
+      const description = this.preparePost();
+      this.forumService.postForumQuestion(description, this.parentId).subscribe(it => {
         console.log('item posted:');
         console.log(it);
         if (it != null) {

@@ -17,9 +17,8 @@
           <p>{{comment.description}}</p>
         </div>
         <div>
-          <span *ngIf="numLikes || numLikes > 0">
-            <i class="fa fa-thumbs-up like"></i> {{numLikes}}
-          </span>
+          <i (click)="onLikeClicked()" class="fa fa-thumbs-up like"></i>
+          <span *ngIf="comment.numLikes> 0">{{comment.numLikes}}</span>
         </div>
       </div>
     </div>
