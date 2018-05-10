@@ -68,7 +68,17 @@ export class ItemPostComponent implements OnInit {
     } else if (this.postForumQuestion) {
       console.log('posting item...');
       const description = this.preparePost();
-      this.forumService.postForumQuestion(description, this.parentId).subscribe(it => {
+      this.forumService.postQuestion(description, this.parentId).subscribe(it => {
+        console.log('item posted:');
+        console.log(it);
+        if (it != null) {
+          this.posted.emit(it);
+        }
+      });
+    } else if (this.postForumAnswer) {
+      console.log('posting item...');
+      const description = this.preparePost();
+      this.forumService.postAnswer(description, this.parentId).subscribe(it => {
         console.log('item posted:');
         console.log(it);
         if (it != null) {

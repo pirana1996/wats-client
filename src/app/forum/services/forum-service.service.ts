@@ -5,25 +5,22 @@ import {PageInfo} from '../../app/models/page-info.model';
 import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
+import { Answer } from '../models/Answer';
 
 @Injectable()
 export class ForumService {
 
-  private apiUrl = `http://localhost:8080/api/locations`;
-
-  questions: Question[];
-  pageResult: PageInfo;
+  // questions: Question[];
+  // pageResult: PageInfo;
 
   constructor(public http: HttpClient) { console.log('Create instance of ForumService'); }
 
-  // getAllQuestions(locationId: number, questions: Question[]) {
-  //   return this.httpClient.get<any>(`${this.apiUrl}/${locationId}/forum/questions`)
-  //     .subscribe(result => {
-  //       this.pageResult = result;
-  //       this.questions = questions = result.content;
-  //       console.log('size: ' + this.questions.length);
-  //     });
-  // }
+  getQuestionById(questionId: number) {
+    return this.http.get<any>(`/api/public/locations/1/forum/questions/${questionId}`)
+    .pipe(
+      catchError(this.handleError('getQuestionById', null))
+    );
+  }
 
   public getQuestionsByLocationSoredByDateDesc(locationId: number, page: number = 0, size: number = 5): Observable<any> {
     return this.http.get<any>(`/api/public/locations/${locationId}/forum/questions?page=${page}&size=${size}&sort=datePublished,desc`)
@@ -32,7 +29,22 @@ export class ForumService {
       );
   }
 
-  public postForumQuestion(question: string, locationId: number)
+  getAnswersByQuestionId(locationId: number, questionId: number, page: number, size: number) {
+    return this.http.get<any>(
+      `/api/public/locations/${locationId}/forum/questions/${questionId}/answers?sort=id,asc&page=${page}&size=${size}`
+    ).pipe(
+      catchError(this.handleError('getAnswersByQuestionId', null))
+    );
+  }
+
+  getTopCommentsForQuestion(locationId: number, questionId: number, quantity: number) {
+    return this.http.get<any>(`/api/public/locations/${locationId}/forum/questions/${questionId}/answers/top?quantity=${quantity}`)
+    .pipe(
+      catchError(this.handleError('getTopCommentsForQuestion', null))
+    );
+  }
+
+  public postQuestion(question: string, locationId: number)
   : Observable<Question> {
     return this.http.post<Question>(`/api/locations/${locationId}/forum/questions`, question)
     .pipe(
@@ -40,34 +52,22 @@ export class ForumService {
     );
   }
 
-  // After tweaking forum-service to singleton class this method will be used
-  // getQuestionFromStorage(questionId: number): Question {
-  //   console.log("question: ", questionId);
-  //   console.log("list length: ", this.questions.length);
-  //   return this.questions.find(value => value.id===questionId);
-  // }
-
-
-  getCurrentQuestion(locationId: string, questionId: string) {
-    return this.http.get<any>(`${this.apiUrl}/${locationId}/forum/questions/${questionId}`);
+  public postAnswer(answer: string, questionId: number)
+  : Observable<Answer> {
+    return this.http.post<Answer>(`/api/locations/1/forum/questions/${questionId}/answers`, answer)
+    .pipe(
+      catchError(this.handleError('postAnswer', null))
+    );
   }
 
-  getCurrentQuestionAnswers(locationId: string, questionId: string, page: string, size: string) {
-    // GET http://localhost:8080/api/locations/1/forum/questions/1/answers?sort=id,asc&page=0&size=2
-    return this.http.get<any>(`${this.apiUrl}/${locationId}/forum/questions/${questionId}/answers?sort=id,asc&page=${page}&size=${size}`);
-  }
-
-  // createAnswer(locationId: string, questionId: string, answerText: string) {
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'Content-Type':  'application/json',
-  //       'Authorization': 'Bearer ' + this.token})
-  //   };
-  //   return this.httpClient.post(`${this.apiUrl}/${locationId}/forum/questions/${questionId}/answers`, answerText);
-  // }
-
-  getTopComments(locationId: number, questionId: number, quantity: number) {
-    return this.http.get<any>(`${this.apiUrl}/${locationId}/forum/questions/${questionId}/answers/top?quantity=${quantity}`);
+  public likeForumAnswer(answerId: number)
+  : Observable<boolean> {
+    // TODO remote locationId
+    // TODO remote questionId
+    return this.http.post<boolean>(`/api/locations/1/forum/questions/1/answers/${answerId}/likes`, {})
+      .pipe(
+        catchError(this.handleError('likeForumANswer', null))
+      );
   }
 
   /**
@@ -89,4 +89,12 @@ export class ForumService {
       return of(result as T);
     };
   }
+
+
+  // After tweaking forum-service to singleton class this method will be used
+  // getQuestionFromStorage(questionId: number): Question {
+  //   console.log("question: ", questionId);
+  //   console.log("list length: ", this.questions.length);
+  //   return this.questions.find(value => value.id===questionId);
+  // }
 }

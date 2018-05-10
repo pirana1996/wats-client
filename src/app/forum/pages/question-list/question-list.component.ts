@@ -46,7 +46,6 @@ export class QuestionListComponent implements OnInit {
       this.forumService.getQuestionsByLocationSoredByDateDesc(location.id, page)
       .subscribe(it => {
         const { content, ...pageInfo } = it;
-        console.log(content);
         this.questions = new BehaviorSubject(content);
         this.pageInfo = pageInfo;
         // this.initPageNumbers(this.pageInfo.totalPages);)

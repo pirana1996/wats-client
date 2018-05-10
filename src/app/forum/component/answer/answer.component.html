@@ -1,22 +1,25 @@
-<div id="question-answers">
+<div class="item-box">
   <div class="row">
-    <div class="col-1">
-      <img class="img-fluid"
-           src="../../../../assets/images/pp-template.png">
+    <div *ngIf="!answer.user.pictureUrl" class="col-1">
+      <img class="item-profile-pic img-fluid"
+        src="../../../../assets/images/pp-template.png">
     </div>
-    <div class="col-11">
-      <span>{{answer.user.name}}</span>
-      <small class="float-right">{{answer.datePublished | date }}</small>
-      <div class="row">
-        <div class="col-10">
-          <p>{{answer.description}}</p>
-        </div>
+    <div *ngIf="answer.user.pictureUrl" class="col-1">
+        <img class="item-profile-pic img-fluid"
+          src="{{answer.user.pictureUrl}}">
+      </div>
+    <div class="col-11 item-right">
+      <div class="comment-header">
+        <span class="item-person-name">{{answer.user.name}}</span>
+        <small class="float-right implicit"><i>{{answer.datePublished | date }}</i></small>
+      </div>
+      <div class="item-body">
+        <p>{{answer.description}}</p>
+      </div>
+      <div>
+        <i (click)="onLikeClicked()" class="fa fa-thumbs-up like"></i>
+        <span *ngIf="answer.numLikes> 0">{{answer.numLikes}}</span>
       </div>
     </div>
   </div>
 </div>
-
-
-<!--<div>-->
-<!--{{answer.datePublished}} {{answer.description}} {{answer.user.name}}-->
-<!--</div>-->

@@ -42,7 +42,8 @@
     <div class="col-8">
       <app-review-comment
         *ngFor="let comment of review.comments"
-        [comment]=comment>
+        [comment]=comment
+        (notLoggedin)=emitNotLoggedIn()>
       </app-review-comment>
     </div>
   </div>

@@ -1,8 +1,9 @@
+import { Location } from './../../../app/models/Location';
 import { AuthService } from './../../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { ReviewService } from '../../services/review.service';
 import { Review } from '../../models/review.model';
-import { Component, OnInit, Input, EventEmitter, Output, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { User } from '../../../app/models/User';
 
 @Component({
@@ -12,14 +13,13 @@ import { User } from '../../../app/models/User';
 })
 export class ReviewComponent implements OnInit {
   @Input() review: Review;
-  @Input() locationId: number;
+  @Input() location: Location;
   shouldHideComments = true;
   @Output() notLoggedin = new EventEmitter<any>();
 
   constructor(
     private reviewService: ReviewService,
-    private router: Router,
-    private el: ElementRef
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -39,18 +39,21 @@ export class ReviewComponent implements OnInit {
 
   onLikeClicked() {
     this.reviewService.likeReview(this.review.id).subscribe(liked => {
-      console.log('first like? ', liked);
       if (liked === true) {
         this.review.numLikes++;
       } else if (liked === false) {
         this.review.numLikes--;
       } else if (liked === null) {
-        this.notLoggedin.emit(this.el.nativeElement.offsetTop);
+        this.emitNotLoggedIn();
       }
     });
   }
 
+  emitNotLoggedIn() {
+    this.notLoggedin.emit();
+  }
+
   onOpenFullDiscussionClicked() {
-    this.router.navigate(['/location/' + this.locationId + '/reviews/' + this.review.id]);
+    this.router.navigate(['/location/' + this.location.id + '/reviews/' + this.review.id]);
   }
 }

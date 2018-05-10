@@ -97,7 +97,7 @@ export class ReviewListComponent implements OnInit {
     this.reviews.next(next);
   }
 
-  showNotLoggedInMessage(event) {
+  showNotLoggedInMessage() {
     this.showNotLoggedIn = true;
     window.scrollTo(0, 0);
   }

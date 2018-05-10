@@ -39,7 +39,8 @@
     <div class="col-8">
       <app-answer
         *ngFor="let answer of question.answers"
-        [answer]=answer>
+        [answer]=answer
+        (notLoggedin)=emitNotLoggedIn()>
       </app-answer>
     </div>
   </div>

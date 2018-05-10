@@ -1,5 +1,5 @@
 import { Location } from './../../../app/models/Location';
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {Question} from '../../models/Question';
 import {ForumService} from '../../services/forum-service.service';
 import {Router} from '@angular/router';
@@ -14,18 +14,14 @@ export class QuestionComponent implements OnInit {
   @Input() question: Question;
   @Input() location: Location;
   shouldHideComments = true;
+  @Output() notLoggedin = new EventEmitter<any>();
 
-  constructor(private forumService: ForumService, private router: Router) { }
+  constructor(
+    private forumService: ForumService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
-  }
-
-  onShowCommentsClicked() {
-    this.shouldHideComments = !this.shouldHideComments;
-    this.forumService.getTopComments(this.location.id, this.question.id, 3)
-      .subscribe(it => {
-        this.question.answers = it;
-      });
   }
 
   onOpenFullDiscussionClicked() {
@@ -41,12 +37,16 @@ export class QuestionComponent implements OnInit {
     this.shouldHideComments = !this.shouldHideComments;
     if (!this.question.answers) {
       this.forumService
-      .getTopComments(this.location.id, this.question.id, 3)
+      .getTopCommentsForQuestion(this.location.id, this.question.id, 3)
       .subscribe(it => {
         this.question.answers = it;
         console.log('fetched top answers from server');
       });
     }
+  }
+
+  emitNotLoggedIn() {
+    this.notLoggedin.emit();
   }
 
 }

@@ -6,5 +6,5 @@ export class Answer {
   description: string;
   datePublished: Date;
   user: User;
-  likes: number;
+  numLikes: number;
 }

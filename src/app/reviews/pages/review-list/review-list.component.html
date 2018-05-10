@@ -25,14 +25,14 @@
 
   <div class="container">
 
-    <app-item-post (posted)="onReviewPosted($event)" *ngIf="showForm"
+    <app-item-post (posted)="onReviewPosted($event)" *ngIf="location.value && showForm"
       [postReview]=true [parentId]=location.value.id>
     </app-item-post>
 
     <br>
 
     <div *ngIf="reviews.value">
-      <app-review *ngFor="let review of reviews | async" (notLoggedin)="showNotLoggedInMessage($event)" [review]=review [locationId]=location.value.id></app-review>
+      <app-review *ngFor="let review of reviews | async" (notLoggedin)="showNotLoggedInMessage()" [review]=review [location]=location.value></app-review>
     </div>
 
     <div *ngIf="!reviews.value">

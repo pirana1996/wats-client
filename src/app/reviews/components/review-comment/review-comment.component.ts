@@ -1,6 +1,6 @@
 import { ReviewService } from './../../services/review.service';
 import { ReviewComment } from './../../models/review-comment.model';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-review-comment',
@@ -9,8 +9,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ReviewCommentComponent implements OnInit {
 
-  @Input()
-  comment: ReviewComment;
+  @Input() comment: ReviewComment;
+  @Output() notLoggedin = new EventEmitter<any>();
 
   constructor(private reviewService: ReviewService) { }
 
@@ -18,9 +18,14 @@ export class ReviewCommentComponent implements OnInit {
   }
 
   onLikeClicked() {
-    console.log('like clicked');
-    this.reviewService.likeReviewComment(this.comment.id).subscribe(it => {
-      console.log('first like? ', it);
+    this.reviewService.likeReviewComment(this.comment.id).subscribe(liked => {
+      if (liked === true) {
+        this.comment.numLikes++;
+      } else if (liked === false) {
+        this.comment.numLikes--;
+      } else if (liked === null) {
+        this.notLoggedin.emit();
+      }
     });
   }
 

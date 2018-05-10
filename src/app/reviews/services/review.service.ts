@@ -73,9 +73,9 @@ export class ReviewService {
   : Observable<boolean> {
     // TODO remote locationId
     // TODO remote reviewId
-    return this.http.post<boolean>(`/api/locations/1/reviews/1/comments/likes`, {})
+    return this.http.post<boolean>(`/api/locations/1/reviews/1/comments/${commentId}/likes`, {})
       .pipe(
-        catchError(this.handleError('likeReview', null))
+        catchError(this.handleError('likeReviewComment', null))
       );
   }
 

@@ -1,7 +1,15 @@
 
 <div class="item-post row">
   <div class="col-1">
-    <img class=img-fluid src={{activeUser.pictureUrl}}>
+      <div *ngIf="!activeUser.pictureUrl">
+          <img class="item-profile-pic img-fluid"
+            src="../../../../assets/images/pp-template.png">
+        </div>
+        <div *ngIf="activeUser.pictureUrl">
+          <img class="item-profile-pic img-fluid"
+            src="{{activeUser.pictureUrl}}">
+        </div>
+    <!-- <img class=img-fluid src={{activeUser.pictureUrl}}> -->
   </div>
   <div class="col-11">
       <form class="form" [formGroup]="form">

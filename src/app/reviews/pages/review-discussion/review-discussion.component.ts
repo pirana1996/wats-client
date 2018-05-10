@@ -17,11 +17,11 @@ import { PageInfo } from '../../../app/models/page-info.model';
 })
 export class ReviewDiscussionComponent implements OnInit {
   pageInfo: PageInfo;
-  activeUser: User = null;
   review: Review = null;
   comments = new BehaviorSubject<ReviewComment[]>(null);
-  showForm = false;
+  activeUser: User = null;
   location = new BehaviorSubject(null);
+  showForm = false;
 
   constructor(
     private reviewService: ReviewService,
@@ -64,7 +64,6 @@ export class ReviewDiscussionComponent implements OnInit {
   }
 
   onReviewCommentPosted(comment: ReviewComment) {
-    console.log('event cauthg');
     this.showForm = false;
     const next = this.comments.value;
     next.unshift(comment);
