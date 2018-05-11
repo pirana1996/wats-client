@@ -35,10 +35,6 @@
   font-weight: normal;
 }
 
-.sub-header {
-  margin-bottom: 15px;
-}
-
 .not-loaded {
   background-color: rgb(248, 246, 246);
   height: 60px;
@@ -59,14 +55,5 @@
   margin-top: 10px;
 }
 
-.container {
-  padding: 50px;
-}
 
-.main-container {
-  border: 1px solid lightgray;
-  border-radius: 3px;
-  padding: 30px;
-  height:100%;
-}
 

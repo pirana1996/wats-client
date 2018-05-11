@@ -1,14 +1,50 @@
-<div class="input-group">
-  <input #box type="text" (keyup)="search(box.value)" class="form-control" placeholder="Find your next place ...">
-</div>
 
-<div *ngIf="locations && locations.length > 0" class="search-result-box box-shadow">
-  <div *ngFor="let l of locations" class="search-result-item">
-    <h4 class="location-name">{{l.name}}</h4>
-    <span [routerLink]="['/location', l.id, 'reviews']" class="bad badge badge-success">Reviews</span>
-    <span [routerLink]="['/location', l.id, 'forum/questions']" class="bad badge badge-primary">Forum</span>
-    <span class="bad bad badge badge-warning">Events</span>
-    <span class="bad badge badge-info">Ads</span>
+<div class="sub-header">
+  <div id=wrapper>
+    <div class="row">
+      <div class="col-1"></div>
+      <div class="col-10">
+        <div class="input-group input-group-lg">
+          <input #box type="text" (keyup)="search(box.value)"
+            id="input-search" class="form-control"
+            placeholder="Find Your Next Place ...">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-1"></div>
+      <div class="col-10">
+        <div style="position: relative">
+          <div *ngIf="locations && locations.length> 0" id="search-result-box" class="box-shadow">
+            <div *ngFor="let l of locations" class="search-result-item">
+              <h4 class="location-name" (click)=onSelectLocation(l)>{{l.name}}</h4>
+              <span [routerLink]="['/location', l.id, 'reviews']" class="bad
+                badge badge-success">Reviews</span>
+              <span [routerLink]="['/location', l.id, 'forum']"
+                class="bad
+                badge badge-primary">Forum</span>
+              <span class="bad bad badge badge-warning">Events</span>
+              <span class="bad badge badge-info">Ads</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
+<div class="sub-container">
+
+  <app-location
+    *ngIf=selectedLocation
+    [location]=selectedLocation>
+  </app-location>
+
+  <section id="personalized-section">
+    <h4 class="title">Personalized section</h4>
+    <hr>
+    <p>To be implemented...</p>
+    <p>(Events, ads, reviews from places you're interested in ...)</p>
+  </section>
+
+</div>

@@ -1,7 +1,16 @@
-.search-result-box {
-  border-radius: 0px 5px 5px 5px;
+#wrapper {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#search-result-box {
+  position: absolute;
+  z-index: 1;
+  // border-radius: 0px 5px 5px 5px;
   border-color: #bfdeff;
   border-top: none;
+  background-color: white;
+  display: block;
 
   .search-result-item {
     padding: 10px;
@@ -21,10 +30,14 @@
     .bad {
       display: inline;
       cursor: pointer;
-      border-radius: 20px;
+      border-radius: 10px;
       font-size: 0.6em;
     }
   }
 }
 
+#personalized-section {
+  margin-top: 20px;
+  opacity: 0.4;
+}
 

@@ -1,0 +1,41 @@
+<div class="sub-container">
+
+  <div class="row">
+
+    <div class="col-2">
+      <div *ngIf=!activeUser.pictureUrl>
+        <img class="img-thumbnail item-profile-pic img-fluid"
+          src="../../../../assets/images/pp-template.png">
+      </div>
+      <div *ngIf=activeUser.pictureUrl>
+        <img class="img-thumbnail item-profile-pic img-fluid"
+          src="{{activeUser.pictureUrl}}">
+      </div>
+      <button class="btn btn-block btn-outline-primary">Change photo</button>
+    </div>
+
+    <div class="col-10">
+      <div class="tabs">
+        <span class="active-tab">Info</span>
+        <span>My Reviews</span>
+      </div>
+
+      <div class="user-info-tag">
+        <span class="implicit">Name:</span><br>
+        <span>{{activeUser.name}}</span>
+        <i class="fa fa-edit float-right"></i>
+      </div>
+      <div class="user-info-tag">
+        <span class="implicit">Username:</span><br>
+        <span>{{activeUser.username}}</span>
+        <i class="fa fa-edit float-right"></i>
+      </div>
+      <div class="user-info-tag">
+        <span class="implicit">Email:</span><br>
+        <span>{{activeUser.email}}</span>
+        <i class="fa fa-edit float-right"></i>
+      </div>
+    </div>
+  </div>
+
+</div>

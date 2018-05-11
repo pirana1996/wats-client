@@ -1,70 +1,71 @@
-<div *ngIf=couldNotLoad class="alert alert-warning text-center">
+ <div *ngIf=couldNotLoad class="alert alert-warning text-center">
   Could not fetch data from server ...
 </div>
 
-<div *ngIf="showNotLoggedIn" class="alert alert-danger text-center">
-  <span>Please log in to perform this action</span>
-  <button class="btn btn-primary" (click)="onLoginClicked()">Log in</button>
+<div class="sub-header">
+  <div *ngIf="!location.value" class="not-loaded"></div>
+  <div *ngIf="location.value && review">
+    <div class="info">
+      <span class="breadcrumb-tag badge badge-info">{{location.value.name}}</span>
+      <small><i class="fa fa-angle-right"></i></small>
+      <span class="breadcrumb-tag badge badge-warning">Review discussion</span>
+      <small><i class="fa fa-angle-right"></i></small>
+      <span class="breadcrumb-tag badge badge-success">{{review.user.username}}</span>
+      <button *ngIf="activeUser && !showForm"
+        (click)="showPostForm()" class="float-right btn btn-outline-primary">
+        <i class="fa fa-plus"></i> Comment
+      </button>
+      <button *ngIf="showForm" (click)="hidePostForm()" class="float-right btn
+        btn-danger"><i
+          class="fa fa-cross"></i> Cancel
+      </button>
+    </div>
+  </div>
 </div>
 
-<div class="main-container">
+<div class="container" *ngIf=review>
 
-  <div class="sub-header">
-    <div *ngIf="!location.value" class="not-loaded"></div>
-    <div *ngIf="location.value && review">
-      <div class="info">
-        <span class="badge badge-danger">{{location.value.name | uppercase}}</span>
-        <span class="badge badge-warning">Review discussion</span>
-        <span class="badge badge-success">{{review.user.username}}</span>
-        <button *ngIf="activeUser && !showForm"
-          (click)="showPostForm()" class="float-right btn btn-outline-primary">
-          <i class="fa fa-plus"></i> Comment
-        </button>
-        <button *ngIf="showForm" (click)="hidePostForm()" class="float-right btn
-          btn-danger"><i
-            class="fa fa-cross"></i> Cancel
-        </button>
-      </div>
+  <app-review
+    (notLoggedin)="showLoginOverlay()" [review]=review
+    [location]=location.value></app-review>
+  <div class="row" *ngIf="showForm">
+    <div class="col-1"></div>
+    <div class="col-11">
+      <app-item-post (posted)="onReviewCommentPosted($event)"
+        [postReviewComment]=true [parentId]=review.id></app-item-post>
     </div>
   </div>
 
-  <div class="container" *ngIf=review>
-
-      <app-review
-      (notLoggedin)="showNotLoggedInMessage()" [review]=review
-      [location]=location.value></app-review>
-    <div class="row" *ngIf="showForm">
+  <div *ngIf="comments.value">
+    <div class="row">
       <div class="col-1"></div>
-      <div class="col-11">
-        <app-item-post (posted)="onReviewCommentPosted($event)"
-          [postReviewComment]=true [parentId]=review.id></app-item-post>
+      <div class="col-8">
+        <app-review-comment
+          *ngFor="let comment of comments | async"
+          [comment]=comment>
+        </app-review-comment>
       </div>
     </div>
-
-    <div *ngIf="comments.value">
-      <div class="row">
-        <div class="col-1"></div>
-        <div class="col-8">
-          <app-review-comment
-            *ngFor="let comment of comments | async"
-            [comment]=comment>
-          </app-review-comment>
-        </div>
-      </div>
-    </div>
-
-    <div *ngIf="!comments.value">
-      <div class="not-loaded"></div>
-      <div class="not-loaded"></div>
-      <div class="not-loaded"></div>
-      <div class="not-loaded"></div>
-      <div class="not-loaded"></div>
-      <div class="not-loaded"></div>
-      <div class="not-loaded"></div>
-    </div>
-
   </div>
 
+  <div *ngIf="!comments.value">
+    <div class="not-loaded"></div>
+    <div class="not-loaded"></div>
+    <div class="not-loaded"></div>
+    <div class="not-loaded"></div>
+    <div class="not-loaded"></div>
+    <div class="not-loaded"></div>
+    <div class="not-loaded"></div>
+  </div>
+
+</div>
 
 
+<div id="login-overlay" class="overlay" (click)="hideLoginOverlay()">
+  <div class="overlay-body">
+    <div class="text-center">
+      <span>Please log in to perform this action</span>
+      <button class="btn btn-primary" (click)="onLoginClicked()">Log in</button>
+    </div>
+  </div>
 </div>

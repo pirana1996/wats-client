@@ -1,3 +1,4 @@
+import { ProfileComponent } from './../pages/profile/profile.component';
 import { HomeComponent } from './../pages/home/home.component';
 import { SaveTokenComponent } from '../pages/save-token/save-token.component';
 import {RouterModule, Routes} from '@angular/router';
@@ -8,6 +9,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent, pathMatch: 'full'},
   {path: 'token', component: SaveTokenComponent, pathMatch: 'full'},
   {path: 'home', component: HomeComponent, pathMatch: 'full'},
+  {path: 'me', component: ProfileComponent, pathMatch: 'full'},
   // feature module ForumModule
   {
     path: 'location/:locationId/forum',

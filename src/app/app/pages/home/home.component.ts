@@ -12,7 +12,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 })
 export class HomeComponent implements OnInit {
 
-  locations: Location[] = [];
+  locations: Location[] = []; // [new Location(1, 'Skoddddddddddpje'), new Location(2, 'Veles') ];
+  selectedLocation: Location = null;
   private query = new Subject<string>();
   fetchError = false;
 
@@ -27,7 +28,9 @@ export class HomeComponent implements OnInit {
       // ignore new term if same as previous term
       distinctUntilChanged(),
       // switch to new search observable each time the term changes
-    ).subscribe(query => this.findLocationsForName(query));
+    ).subscribe(query => {
+      this.findLocationsForName(query);
+    });
   }
 
   findLocationsForName(name: string) {
@@ -35,7 +38,7 @@ export class HomeComponent implements OnInit {
       this.fetchError = !locations ? true : false;
       if (!this.fetchError) {
         this.locations = locations;
-        console.log(locations);
+        document.getElementById('search-result-box').style.display = 'block';
       }
     });
   }
@@ -46,6 +49,11 @@ export class HomeComponent implements OnInit {
     } else {
       this.locations = [];
     }
+  }
+
+  onSelectLocation(location: Location) {
+    this.selectedLocation = location;
+    document.getElementById('search-result-box').style.display = 'none';
   }
 
 }

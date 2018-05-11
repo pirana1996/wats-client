@@ -5,7 +5,7 @@ import {QuestionDetailsComponent} from '../pages/question-details/question-detai
 
 const routes: Routes = [
   {
-    path: 'questions',
+    path: '',
     component: QuestionListComponent
   },
   {

@@ -1,13 +1,6 @@
-<div *ngIf=couldNotLoad class="alert alert-warning text-center">
-    Could not fetch data from server ...
-  </div>
-
-<div *ngIf="showNotLoggedIn" class="alert alert-danger text-center">
-    <span >Please log in to perform this action</span>
-    <button class="btn btn-primary" (click)="onLoginClicked()">Log in</button>
-  </div>
-
-<div class="main-container">
+    <div *ngIf=couldNotLoad class="alert alert-warning text-center">
+        Could not fetch data from server ...
+      </div>
 
   <div class="sub-header">
     <div *ngIf="!location.value" class="not-loaded"></div>
@@ -27,7 +20,7 @@
     </div>
   </div>
 
-  <div class="container">
+  <div class="sub-container">
 
     <app-item-post (posted)="onQuestionPosted($event)" *ngIf="showForm"
       [postForumQuestion]=true [parentId]=location.value.id>
@@ -39,7 +32,7 @@
       <app-question *ngFor="let question of questions | async"
       [question]=question
       [location]=location.value
-      (notLoggedin)=showNotLoggedInMessage()></app-question>
+      (notLoggedin)=showLoginOverlay()></app-question>
     </div>
 
     <div *ngIf="!questions.value">
@@ -68,4 +61,12 @@
     </div> -->
   </div>
 
-</div>
+  <div id="login-overlay" class="overlay" (click)="hideLoginOverlay()">
+      <div class="overlay-body">
+        <div class="text-center">
+          <span>Please log in to perform this action</span>
+          <button class="btn btn-primary" (click)="onLoginClicked()">Log in</button>
+        </div>
+      </div>
+    </div>
+

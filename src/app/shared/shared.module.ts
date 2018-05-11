@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ItemPostComponent } from './components/item-post/item-post.component';
+import { LocationComponent } from './components/location/location.component';
 
 @NgModule({
   imports: [
@@ -16,9 +17,10 @@ import { ItemPostComponent } from './components/item-post/item-post.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    ItemPostComponent
+    ItemPostComponent,
+    LocationComponent
   ],
-  declarations: [ItemPostComponent]
+  declarations: [ItemPostComponent, LocationComponent]
 })
 export class SharedModule {
   // Solves the cross module problem

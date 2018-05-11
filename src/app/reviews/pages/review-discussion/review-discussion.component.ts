@@ -88,8 +88,11 @@ export class ReviewDiscussionComponent implements OnInit {
     });
   }
 
-  showNotLoggedInMessage() {
-    this.showNotLoggedIn = true;
-    window.scrollTo(0, 0);
+  hideLoginOverlay() {
+    document.getElementById('login-overlay').style.display = 'none';
+  }
+
+  showLoginOverlay() {
+    document.getElementById('login-overlay').style.display = 'block';
   }
 }

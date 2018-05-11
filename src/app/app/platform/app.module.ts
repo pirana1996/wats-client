@@ -13,6 +13,7 @@ import { LoginComponent } from '../pages/login/login.component';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { SaveTokenComponent } from '../pages/save-token/save-token.component';
 import { HomeComponent } from '../pages/home/home.component';
+import { ProfileComponent } from '../pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { HomeComponent } from '../pages/home/home.component';
     NavbarComponent,
     SaveTokenComponent,
     HomeComponent,
+    ProfileComponent,
   ],
   imports: [
     AppRoutingModule,

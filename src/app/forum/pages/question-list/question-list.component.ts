@@ -74,11 +74,6 @@ export class QuestionListComponent implements OnInit {
     this.questions.next(next);
   }
 
-  showNotLoggedInMessage() {
-    this.showNotLoggedIn = true;
-    window.scrollTo(0, 0);
-  }
-
   onLoginClicked() {
     const redirectBackTo = `/location/${
       this.location.value.id
@@ -86,5 +81,13 @@ export class QuestionListComponent implements OnInit {
     this.router.navigate(['/login'], {
       queryParams: { redirectBackTo: redirectBackTo }
     });
+  }
+
+  hideLoginOverlay() {
+    document.getElementById('login-overlay').style.display = 'none';
+  }
+
+  showLoginOverlay() {
+    document.getElementById('login-overlay').style.display = 'block';
   }
 }

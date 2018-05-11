@@ -102,15 +102,19 @@ export class ReviewListComponent implements OnInit {
     this.reviews.next(next);
   }
 
-  showNotLoggedInMessage() {
-    this.showNotLoggedIn = true;
-    window.scrollTo(0, 0);
-  }
-
   onLoginClicked() {
     const redirectBackTo =
     `/location/${this.location.value.id}/reviews?page=${this.pageInfo.number}`;
     this.router.navigate(['/login'],
     { queryParams: { 'redirectBackTo': redirectBackTo} });
   }
+
+  hideLoginOverlay() {
+    document.getElementById('login-overlay').style.display = 'none';
+  }
+
+  showLoginOverlay() {
+    document.getElementById('login-overlay').style.display = 'block';
+  }
+
 }
